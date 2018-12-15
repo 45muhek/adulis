@@ -1,0 +1,9 @@
+to do:
+    create a user profile with role
+    convert to semantics.ui
+    add aditionals:
+        comments
+        ratting
+        views
+        report 
+    
