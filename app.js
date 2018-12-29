@@ -9,7 +9,8 @@ var express = require("express"),
   Comment = require("./models/comments"),
   session = require("express-session"),
   flash = require("connect-flash"),
-  validator = require("express-validator");
+  validator = require("express-validator"),
+  MongoStore = require("connect-mongo")(session);
 
 //mongoose setup
 mongoose.connect("mongodb://127.0.0.1/adulisdb");
@@ -26,7 +27,9 @@ app.use(
   session({
     secret: "God bless Ethiopia",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { maxAge: 180 * 60 * 1000 }
   })
 );
 app.use(flash());
@@ -52,8 +55,10 @@ app.use(passport.session());
 //AUTHENTICATION CHECK
 app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
-  next(); 
+  res.locals.session = req.session; //setting session to a user
+  next();
 });
+
 
 //ROUTES
 app.use("/user", userRoutes);

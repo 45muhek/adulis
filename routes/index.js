@@ -37,4 +37,6 @@ function isNotLoggedIn(req, res) {
   console.log("error", "You can not access this page");
   res.redirect("/");
 }
+
+
 module.exports = router;
