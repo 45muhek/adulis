@@ -3,6 +3,7 @@
   <head>
     <title>Adulis Buy anything</title>
     <link rel="stylesheet" href="\app.css" />
+    <link rel="stylesheet" href="\bootstrap-social.css" />
     <link rel="stylesheet" href="\bootstrap.min.css" />
     <script src="\jquery.min.js"></script>
     <script src="\bootstrap.min.js"></script>
@@ -16,8 +17,13 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
+            <% if (login){%>
+            <li><a href="/user/logout">Logout</a></li>
+            <li><a href="/user/profile">profile</a></li>
+            <%}else {%>
             <li><a href="/user/login">Login</a></li>
             <li><a href="/user/register">Sign up</a></li>
+            <%}%>
             <li><a href="/">cart</a></li>
           </ul>
         </div>

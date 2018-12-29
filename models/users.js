@@ -5,7 +5,12 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   email: String,
-  password: String
+  username: String,
+  firstname: String,
+  lastname: String,
+  password: String,
+  googleid:String,
+  facebookid:String
 });
 UserSchema.methods.encryptPassword = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);

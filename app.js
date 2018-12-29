@@ -8,11 +8,18 @@ var express = require("express"),
   Product = require("./models/products"),
   Comment = require("./models/comments"),
   session = require("express-session"),
-  flash = require("connect-flash");
+  flash = require("connect-flash"),
+  validator = require("express-validator");
 
+//mongoose setup
 mongoose.connect("mongodb://127.0.0.1/adulisdb");
+
 require("./config/passport");
+require("./config/passport-google-auth");
+
+//initializing routes
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(validator());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(
@@ -25,7 +32,7 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-//routes
+//routes init
 var shopeRoutes = require("./routes/shop"),
   commentRoutes = require("./routes/comments"),
   userRoutes = require("./routes/user"),
@@ -42,8 +49,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//AUTHENTICATION CHECK
+app.use(function(req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  next(); 
+});
+
+//ROUTES
+app.use("/user", userRoutes);
 app.use(shopeRoutes);
-//app.use(userRoutes);
 app.use(indexRoutes);
 app.use(commentRoutes);
 
