@@ -1,9 +1,10 @@
 var mongoose = require("mongoose")
 
-var commentSchema = mongoose.Schema({
+var commentSchema = new mongoose.Schema({
     text: String,
-    author: String
+    author: String,
+    likes: Number
 
 })
 
-module.export = mongoose.model("Comment", commentSchema);
+module.exports = mongoose.model("Comment", commentSchema);

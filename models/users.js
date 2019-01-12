@@ -4,18 +4,37 @@ var bcrypt = require("bcrypt-nodejs");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  email: String,
-  username: String,
-  firstname: String,
-  lastname: String,
-  password: String,
-  googleid:String,
-  facebookid:String
+  email: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  googleid: {
+    type: String
+  },
+  facebookid: {
+    type: String
+  }
 });
-UserSchema.methods.encryptPassword = function(password) {
+UserSchema.methods.encryptPassword = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
 };
-UserSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 //UserSchema.plugin(passportLocalMongoose);

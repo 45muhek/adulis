@@ -1,53 +1,27 @@
-var express= require("express");
-var router= express.Router();
+var express = require("express");
+var router = express.Router({ mergeParams: true });
 
-//Comments route
-//==============
+var Product = require("../models/products"),
+    Comment = require("../models/comments");
 
-router.get("/productcatalogue/:id/comments/new", function (req, res) {
 
-    //find product by id
-    Product.findById(req.params.id, function (err, product) {
+
+router.delete("/:comment_id", isLoggedIn, function (req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function (err, product) {
         if (err)
-            console.log(err)
+            res.redirect("/")
         else {
-            res.render("comments/new", { product: product });
-        }
-    })
-
-})
-
-
-router.post("/productcatalogue/:id/comments", function (req, res) {
-
-    Product.findById(req.params.id, function (err, product) {
-        if (err) {
-            console.log(err)
-            res.redirect("/productcatalogue");
-
-        }
-        else {
-
-            Comment.create(req.body.comment, function (err, comment) {
-                if (err)
-                    console.log(err)
-                else {
-                    product.comments.push(comment);
-                    product.save();
-                    res.redirect('/productcatalogue/' + product._id);
-                }
-            })
-
+            req.flash("success", "comment has been deleted!");
+            res.redirect("/productcatalogue/" + req.params.id)
         }
     })
 })
-
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    console.log("error", "You must be logged in first!")
+    req.flash("error", "You must be logged in first!")
     res.redirect("/");
 }
-module.exports=router;
+module.exports = router;

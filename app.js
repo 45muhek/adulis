@@ -39,7 +39,8 @@ app.use(passport.session());
 var shopeRoutes = require("./routes/shop"),
   commentRoutes = require("./routes/comments"),
   userRoutes = require("./routes/user"),
-  indexRoutes = require("./routes/index");
+  indexRoutes = require("./routes/index"),
+  profileRoutes = require("./routes/profile");
 
 //PASSPORT CONFIGURATION
 app.use(
@@ -53,7 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //AUTHENTICATION CHECK
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session; //setting session to a user
   next();
@@ -64,8 +65,10 @@ app.use(function(req, res, next) {
 app.use("/user", userRoutes);
 app.use(shopeRoutes);
 app.use(indexRoutes);
-app.use(commentRoutes);
+app.use("/comments", commentRoutes);
+app.use("/profile", profileRoutes);
 
-app.listen("3000", function() {
+
+app.listen("3000", function () {
   console.log("Adulis server running!");
 });
