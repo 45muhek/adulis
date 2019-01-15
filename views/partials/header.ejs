@@ -4,6 +4,7 @@
     <title>Adulis Buy anything</title>
     <link rel="stylesheet" href="\app.css" />
     <link rel="stylesheet" href="\bootstrap-social.css" />
+    <link rel="stylesheet" href="\css\font-awesome.css" />
     <link rel="stylesheet" href="\bootstrap.min.css" />
     <script src="\jquery.min.js"></script>
     <script src="\bootstrap.min.js"></script>
@@ -24,7 +25,19 @@
             <li><a href="/user/login">Login</a></li>
             <li><a href="/user/register">Sign up</a></li>
             <%}%>
-            <li><a href="/">cart</a></li>
+            <li>
+              <a href="/shopping-cart">
+                <i
+                  class="fa fa-shopping-cart"
+                  style="font-size: 20px;text-align: center;"
+                >
+                </i
+                ><span class="badge"
+                  ><%if(typeof session.cart ==='undefined'){%> 0 <%} else{ %>
+                  <%= session.cart.totalQty %> <% }%>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
