@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
+var mongoose = require("mongoose");
 
 //LOAD PROFILE, USER,SORE AND PEODUCT MODULES
 var User = require("../models/users"),
@@ -12,7 +13,7 @@ var User = require("../models/users"),
 //@desc test profile route
 //access public
 router.get("/test", isLoggedIn, function (req, res) {
-    res.send(req.user.id);
+    res.json("profile route works");
 })
 
 //@route GET api/profile
@@ -20,32 +21,55 @@ router.get("/test", isLoggedIn, function (req, res) {
 //access private
 router.get("/", isLoggedIn, function (req, res) {
     var errors = {};
-    Profile.findOne({ user: req.user.id }).then(profile => {
-        if (!profile) {
-            errors.noprofile = "There is no profile for this user";
-            return res.send(errors);
-        }
-        res.send(profile);
-    })
-        .catch(err => res.status(404));
+    Profile.findOne({ user: req.user.id })
+        .populate('user')
+        .then(profile => {
+            if (!profile) {
+                errors.noprofile = "There is no profile for this user";
+                return res.json(profile);
+            }
+            res.send(profile);
+        })
+        .catch(err => res.status(404).json(errors));
 
 })
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    console.log("error", "You must be logged in first!");
-    res.redirect("/");
-}
+
 
 //@route POST api/profile/
 //@desc update and create 
 //access private
 router.post("/", isLoggedIn, function (req, res) {
+    //VALIDATION
+    req.checkBody("handle", "Profile handle is required")
+        .notEmpty();
+
+    req.checkBody("handle", "Handle needs to be between 2 and 40")
+        .isLength({ min: 2, max: 40 });
+
+    req.checkBody("location", 'Location field is required')
+        .notEmpty();
+
+
+    req.check("phone")
+        .notEmpty().withMessage("phone is required")
+        .isMobilePhone().withMessage('invalid phone number');
+
+    var errors = req.validationErrors();
+    if (errors) {
+        var messages = [];
+        var params = [];
+        errors.forEach(function (error) {
+            messages.push(error.msg);
+            params.push(error.param);
+
+
+        });
+        return res.status(400).json(messages);
+    }
     //GET FIELDS
     var profileFields = {};
-    profileFields.user = req.body.id;
+    profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.phone) profileFields.phone = req.body.phone;
@@ -54,26 +78,30 @@ router.post("/", isLoggedIn, function (req, res) {
         profileFields.interests = req.body.interests.split(',');
     }
 
+
+
     Profile.findOne({ user: req.user.id })
         .then(profile => {
             if (profile) {
                 //UPDATE
-                Profile.findOneAndUpdate({ user: req.user.id },
+                Profile.findOneAndUpdate(
+                    { user: req.user.id },
                     { $set: profileFields },
                     { new: true }
-                ).then(profile => res.send(profile));
+                ).then(profile => res.json(profile));
             }
+
             else {
                 //CREATE
 
                 //CHECK IF HANDLE EXISTS
-                Profile.findOne({ handle: profileFields.handle }).then(Profile => {
+                Profile.findOne({ handle: profileFields.handle }).then(profile => {
                     if (profile) {
                         errors.handle = 'That handle alread exists';
-                        res.send(errors);
+                        res.status(400).json(errors);
                     }
                     //SAVE PROFILE  
-                    new Profile(profileFields).save().then(profile => res.send(profile));
+                    new Profile(profileFields).save().then(profile => res.json(profile));
                 })
             }
         })
@@ -86,6 +114,7 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     console.log("error", "You must be logged in first!");
+    res.json("You must be logged in first!");
     res.redirect("/");
 }
 

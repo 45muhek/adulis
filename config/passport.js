@@ -2,12 +2,12 @@ var passport = require("passport");
 var User = require("../models/users");
 var LocalStrategy = require("passport-local").Strategy;
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
     done(err, user);
   });
 });
@@ -19,7 +19,7 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true
     },
-    function(req, email, password, done) {
+    function (req, email, password, done) {
       req
         .checkBody("email", "Invalid email")
         .notEmpty()
@@ -31,12 +31,12 @@ passport.use(
       var errors = req.validationErrors();
       if (errors) {
         var messages = [];
-        errors.forEach(function(error) {
+        errors.forEach(function (error) {
           messages.push(error.msg);
         });
         return done(null, false, req.flash("error", messages));
       }
-      User.findOne({ email: email }, function(err, user) {
+      User.findOne({ email: email }, function (err, user) {
         if (err) {
           console.log(err);
           return done(err);
@@ -47,7 +47,7 @@ passport.use(
         var newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
-        newUser.save(function(err, result) {
+        newUser.save(function (err, result) {
           if (err) {
             console.log(err);
             return done(err);
@@ -67,7 +67,7 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true
     },
-    function(req, email, password, done) {
+    function (req, email, password, done) {
       req
         .checkBody("email", "Invalid email")
         .notEmpty()
@@ -79,12 +79,12 @@ passport.use(
       var errors = req.validationErrors();
       if (errors) {
         var messages = [];
-        errors.forEach(function(error) {
+        errors.forEach(function (error) {
           messages.push(error.msg);
         });
         return done(null, false, req.flash("error", messages));
       }
-      User.findOne({ email: email }, function(err, user) {
+      User.findOne({ email: email }, function (err, user) {
         if (err) {
           console.log(err);
           return done(err);

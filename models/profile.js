@@ -3,11 +3,11 @@ var ProfileSchema = new mongoose.Schema({
 
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "User"
     },
     store: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Store'
+        ref: "Store"
     },
     handle: {
         type: String,
@@ -24,14 +24,14 @@ var ProfileSchema = new mongoose.Schema({
     request: {
         type: String
     },
-    interest: {
+    interests: {
         type: [String]
     },
     perchasehistory: [
         {
             product: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Product'
+                ref: "Product"
             },
             perchasedate: {
                 type: Date
