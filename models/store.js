@@ -1,29 +1,49 @@
 var mongoose = require("mongoose");
 var StoreSchema = new mongoose.Schema({
-
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    },
-    name: {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product"
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: [String]
+  },
+  bio: {
+    type: String
+  },
+  description: {
+    type: String
+  },
+  assignedcatagory: {
+    type: [String]
+  },
+  website: {
+    type: String
+  },
+  contacts: [
+    {
+      phone: {
         type: String,
         required: true
-    },
-    location: {
-        type: [String]
-    },
-    bio: {
+      },
+      email: {
         type: String
-    },
-    description: {
+      },
+      facebook: {
         type: String
+      },
+      twitter: {
+        type: String
+      }
     }
-
-
-})
+  ]
+});
 
 module.exports = mongoose.model("Store", StoreSchema);

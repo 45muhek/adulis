@@ -51,7 +51,7 @@ router.get("/productcatalogue/:id", function (req, res) {
         //console.log(err);
         res.send(err);
       } else {
-        console.log(foundProduct);
+       
         var comment_count = foundProduct.comments.length;
 
         res.render("products/single-product", { product: foundProduct, comment_count: comment_count });
@@ -85,7 +85,7 @@ router.get("/productcatalogue/:id/add-comments", function (req, res) {
     }
     else {
       res.render("comments/new", { product: product })
-      console.log(product);
+   
     }
   })
 

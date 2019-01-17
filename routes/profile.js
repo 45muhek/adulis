@@ -16,9 +16,17 @@ router.get("/test", isLoggedIn, function (req, res) {
     res.json("profile route works");
 })
 
-//@route GET api/profile
-//@desc view user profile
-//access private
+
+//@route GET api/profile/test
+//@desc test profile route
+//access public
+
+
+//@route GET api/profile/handle/:handle
+//@desc get product by handle
+//access public
+
+
 router.get("/", isLoggedIn, function (req, res) {
     var errors = {};
     Profile.findOne({ user: req.user.id })
