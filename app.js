@@ -10,7 +10,8 @@ var express = require("express"),
   session = require("express-session"),
   flash = require("connect-flash"),
   validator = require("express-validator"),
-  MongoStore = require("connect-mongo")(session);
+  MongoStore = require("connect-mongo")(session),
+  methodOverride = require("method-override");
 
 //mongoose setup
 mongoose.connect("mongodb://127.0.0.1/adulisdb");
@@ -20,6 +21,7 @@ require("./config/passport-google-auth");
 
 //initializing routes
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(validator());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -40,7 +42,9 @@ var shopeRoutes = require("./routes/shop"),
   commentRoutes = require("./routes/comments"),
   userRoutes = require("./routes/user"),
   indexRoutes = require("./routes/index"),
-  profileRoutes = require("./routes/profile");
+  profileRoutes = require("./routes/profile"),
+  storeRoures = require("./routes/store"),
+  checkoutRoutes = require("./routes/checkout");
 
 //PASSPORT CONFIGURATION
 app.use(
@@ -54,12 +58,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //AUTHENTICATION CHECK
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session; //setting session to a user
   next();
 });
-
 
 //ROUTES
 app.use("/user", userRoutes);
@@ -67,8 +70,9 @@ app.use(shopeRoutes);
 app.use(indexRoutes);
 app.use("/comments", commentRoutes);
 app.use("/profile", profileRoutes);
+app.use("/store", storeRoures);
+app.use("/checkout", checkoutRoutes);
 
-
-app.listen("3000", function () {
+app.listen("3000", function() {
   console.log("Adulis server running!");
 });

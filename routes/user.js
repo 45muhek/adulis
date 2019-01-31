@@ -19,7 +19,7 @@ router.get("/profile", isLoggedIn, function(req, res) {
 router.use("/", isNotLoggedIn, function(req, res, next) {
   next();
 });
-//AN-AUTHENTHICATED TOUTES
+//AN-AUTHENTHICATED ROUTES
 
 //login logic
 router.get("/login", function(req, res) {
@@ -58,7 +58,7 @@ router.post(
     successRedirect: "/user/profile",
     failureRedirect: "/user/register",
     failureFlash: true
-  })
+  }) 
 );
 
 function isLoggedIn(req, res, next) {

@@ -73,7 +73,7 @@ router.post("/product", function(req, res) {
   }
 
   //DEPARTMAENT AND ADDITIONAL INFORMATION
-
+  producFields.department = {};
   if (req.body.department)
     producFields.department.department = req.body.department;
   if (req.body.size) producFields.department.size = req.body.size;
@@ -197,7 +197,7 @@ router.post("/product/rate", (req, res) => {
         all;
       rate.rating.averge = avr;
       console.log("go 2 sleep ", avr);
-      rate.save();
+      rate.save();  
     })
 
     .catch(err => console.log(err));

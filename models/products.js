@@ -1,5 +1,9 @@
 var mongoose = require("mongoose");
 var adulisSchema = new mongoose.Schema({
+  store: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Store"
+  },
   pname: {
     type: String,
     required: true

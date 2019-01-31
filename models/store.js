@@ -1,12 +1,8 @@
 var mongoose = require("mongoose");
 var StoreSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product"
+    type: [String],
+    required: true
   },
   name: {
     type: String,
@@ -23,6 +19,14 @@ var StoreSchema = new mongoose.Schema({
   },
   assignedcatagory: {
     type: [String]
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  expired: {
+    type: Date,
+    required: true
   },
   website: {
     type: String
