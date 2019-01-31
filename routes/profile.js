@@ -16,12 +16,6 @@ router.get("/test", isLoggedIn, function (req, res) {
     res.json("profile route works");
 })
 
-
-//@route GET api/profile/test
-//@desc test profile route
-//access public
-
-
 //@route GET api/profile/handle/:handle
 //@desc get product by handle
 //access public

@@ -1,7 +1,15 @@
 var mongoose = require("mongoose");
 var adulisSchema = new mongoose.Schema({
-  pname: String,
-  price: String,
+  pname: {
+    type: String,
+    required: true
+  },
+
+  price: {
+    type: String,
+    required: true
+  },
+
   manufacture: [
     {
       manufacturer: {
@@ -9,22 +17,50 @@ var adulisSchema = new mongoose.Schema({
         required: true
       },
       model_number: {
-        type: String,
-        required: true
+        type: String
       },
       release_date: {
         type: String
       }
     }
   ],
-  image: String,
-  description: String,
+
+  image: {
+    type: String,
+    required: true
+  },
+
+  stokeamount: {
+    type: Number
+  },
+  description: {
+    type: String
+  },
+  view: {
+    type: String
+  },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
     }
   ],
+  department: {
+    department: {
+      type: String,
+      required: true
+    },
+    colors: [String],
+    size: {
+      type: String
+    },
+    modelno: {
+      type: String
+    },
+    new: {
+      type: Boolean
+    }
+  },
   rating: {
     averge: {
       type: Number,
@@ -52,7 +88,7 @@ var adulisSchema = new mongoose.Schema({
     }
   },
   tags: [String],
-+
+
   shipping_details: {
     weight: {
       type: String
