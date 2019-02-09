@@ -7,7 +7,7 @@ var Checkout = require("../models/checkout"),
 //@desc  test checkout route
 //access public
 router.get("/", (req, res) => {
-  res.json("hey");
+  res.render("products/checkout");
 });
 
 router.post("/", (req, res) => {

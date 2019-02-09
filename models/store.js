@@ -20,6 +20,14 @@ var StoreSchema = new mongoose.Schema({
   assignedcatagory: {
     type: [String]
   },
+  paymentsupport: {
+      cbe:{
+        type:String
+      },
+      oro:{
+        type:String
+      }
+  },
   created: {
     type: Date,
     default: Date.now
@@ -31,23 +39,21 @@ var StoreSchema = new mongoose.Schema({
   website: {
     type: String
   },
-  contacts: [
-    {
-      phone: {
-        type: String,
-        required: true
-      },
-      email: {
-        type: String
-      },
-      facebook: {
-        type: String
-      },
-      twitter: {
-        type: String
-      }
+  contacts: {
+    phone: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String
+    },
+    facebook: {
+      type: String
+    },
+    twitter: {
+      type: String
     }
-  ]
+  }
 });
 
 module.exports = mongoose.model("Store", StoreSchema);

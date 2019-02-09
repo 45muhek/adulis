@@ -18,6 +18,10 @@ router.post("/", (req, res) => {
   //VALIDATION
   req.checkBody("name", "name field is required").notEmpty();
   req.checkBody("expired", "name field is required").notEmpty();
+  req.checkBody("uid", "users field is required").notEmpty();
+  req
+    .checkBody("assignedcatagory", "Assigned catagorry is required")
+    .notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -37,8 +41,26 @@ router.post("/", (req, res) => {
   if (req.body.location) storeFields.location = req.body.location;
   if (req.body.bio) storeFields.bio = req.body.bio;
   if (req.body.description) storeFields.description = req.body.description;
-  if (req.body.website) storeFields.website = req.body.website;
   if (req.body.expired) storeFields.expired = req.body.expired;
+
+  //PAYMENT METHODS
+  if (typeof req.body.payments != "undefined") {
+    storeFields.paymentsupport = req.body.payments.split(",");
+  }
+  //ASSIGNED USERS FOR THIS STORE
+  if (typeof req.body.uid != "undefined") {
+    storeFields.user = req.body.uid.split(",");
+  }
+  //ASSIGNED CATAGORIES BY ADMIN
+  if (typeof req.body.assignedcatagory != "undefined") {
+    storeFields.assignedcatagory = req.body.assignedcatagory.split(",");
+  }
+  storeFields.contacts={}
+  if (req.body.phone) storeFields.contacts.phone = req.body.phone;
+  if (req.body.facebook) storeFields.contacts.facebook = req.body.facebook;
+  if (req.body.email) storeFields.contacts.email = req.body.email;
+  if (req.body.twitter) storeFields.contacts.twitter = req.body.twitter;
+  if (req.body.website) storeFields.website = req.body.website;
 
   Store.create(storeFields, (err, store) => {
     if (err) {
@@ -46,44 +68,6 @@ router.post("/", (req, res) => {
     } else {
       res.json(store);
     }
-  });
-});
-
-//@route GET api/store/profile
-//@desc  store profile associated with user and assigned catagory
-//access private
-router.post("/profile/:id", (req, res) => {
-  //VALIDATION
-  req.checkBody("uid", "users field is required").notEmpty();
-  req
-    .checkBody("assignedcatagory", "Assigned catagorry is required")
-    .notEmpty();
-
-  var errors = req.validationErrors();
-  if (errors) {
-    var messages = [];
-    var params = [];
-    errors.forEach(function(error) {
-      messages.push(error.msg);
-      params.push(error.param);
-    });
-    return res.status(400).json(messages);
-  }
-
-  Store.findOne({ _id: req.params.id }).then(profile => {
-    const newProfile = {};
-    //ASSIGNED USERS FOR THIS STORE
-    if (typeof req.body.uid != "undefined") {
-      newProfile.users = req.body.uid.split(",");
-    }
-    //ASSIGNED CATAGORIES BY ADMIN
-    if (typeof req.body.assignedcatagory != "undefined") {
-      newProfile.assignedcatagory = req.body.assignedcatagory.split(",");
-    }
-
-    profile.assignedcatagory.unshift(newProfile.assignedcatagory);
-    profile.user.unshift(newProfile.users);
-    profile.save().then(profile => res.json(profile));
   });
 });
 
