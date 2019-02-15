@@ -123,8 +123,18 @@ router.get("/add-to-cart/:id", function(req, res) {
     }
     cart.add(product, product.id);
     req.session.cart = cart;
-    console.log(req.session.cart);
     res.redirect("/productcatalogue");
+  });
+});
+
+router.get("/shopping-cart", function(req, res) {
+  if (!req.session.cart) {
+    return res.render("products/shopping-cart", { products: null });
+  }
+  var cart = new Cart(req.session.cart);
+  res.render("products/shopping-cart", {
+    products: cart.generateArray(),
+    totalPrice: cart.totalPrice
   });
 });
 
@@ -197,7 +207,7 @@ router.post("/product/rate", (req, res) => {
         all;
       rate.rating.averge = avr;
       console.log("go 2 sleep ", avr);
-      rate.save();  
+      rate.save();
     })
 
     .catch(err => console.log(err));
@@ -212,15 +222,15 @@ function isLoggedIn(req, res, next) {
   console.log("error", "You must be logged in first!");
   res.redirect("/");
 }
-router.get("/shopping-cart", function(req, res) {
-  if (!req.session.cart) {
-    return res.render("products/shopping-cart", { products: null });
+function isAdmin(req, res) {
+  if (req.isAuthenticated()) {
+    permission = req.user.role;
+    if (permission === "admin") {
+      return next();
+    }
   }
-  var cart = new Cart(req.session.cart);
-  res.render("products/shopping-cart", {
-    products: cart.generateArray(),
-    totalPrice: cart.totalPrice
-  });
-});
+  console.log("error", "You must be logged in first!");
+  res.redirect("/");
+}
 
 module.exports = router;

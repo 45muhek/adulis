@@ -1,13 +1,18 @@
 var express = require("express");
 var router = express.Router();
 var Checkout = require("../models/checkout"),
-  Payment = require("../models/payment");
+  Payment = require("../models/payment"),
+  Order = require("../models/order");
 
 //@route GET api/checkout/
 //@desc  test checkout route
 //access public
 router.get("/", (req, res) => {
-  res.render("products/checkout");
+  var cart = new Cart(req.session.cart);
+  res.render("products/checkout", {
+    products: cart.generateArray(),
+    totalPrice: cart.totalPrice
+  });
 });
 
 router.post("/", (req, res) => {

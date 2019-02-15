@@ -9,8 +9,12 @@ Store = require("../models/store");
 //@desc  test store route
 //access public
 router.get("/", (req, res) => {
-  res.json("store works");
+  Store.findOne({ user: req.user.id }).then(store => {
+    if (store) {
+       res.json(sotre);
+    }
 });
+})
 //@route GET api/store
 //@desc  add new store
 //access private
@@ -83,5 +87,6 @@ router.delete("/profile/:id", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
 
 module.exports = router;

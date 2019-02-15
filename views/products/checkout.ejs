@@ -5,148 +5,225 @@
   <div class="row">
     <h3>Total price</h3>
     <div class="col-sm-8 col-md-8">
-      <form action="/productcatalogue" method="POST">
-            <!-- Shipping adress -->
-        <div class="row">
-        <div class="col-sm-4 col-md-4">
-          <strong>1 Shipping address</strong>
-        </div>
+      <form action="/order" method="POST">
+        <!-- Shipping adress -->
 
-        <div class="col-sm-4 col-md-4 ">
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              name="pname"
-              placeholder="product name"
-            />
+        <strong>1 Shipping address</strong>
+        <div class="form-group">
+          <label for="pname">Full name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            placeholder="usename"
+          />
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="pname">Adress</label>
+              <input
+                class="form-control"
+                type="text"
+                name="deliveryadress"
+                placeholder="street,city,region"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <a href="/#" class="btn btn-default "
+              ><i class="fa fa-map-marker"></i> get current location</a
+            >
           </div>
         </div>
 
-        <div class="col-sm-4 col-md-4">
-          <a href="/#" class="btn btn-default ">change</a>
+        <div class="form-group">
+          <label for="pname">phone number</label>
+          <input
+            class="form-control"
+            type="text"
+            name="phone"
+            placeholder="phone"
+          />
+        </div>
+
+        <!-- Transportation -->
+
+        <div class="row">
+          <hr />
+          <div class="col-sm-4 col-md-4">
+            <strong>2 Transportation option</strong>
+          </div>
+
+          <div class="col-sm-4 col-md-4">
+            <div class="radio">
+              <label
+                ><input
+                  type="radio"
+                  name="optradio"
+                  value="Deliver to my home"
+                  checked
+                />Deliver to my home</label
+              >
+              <p class="small">
+                Deliver via transporter to my location. transporters are
+                assigned by the seller
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <div class="radio">
+              <label
+                ><input
+                  type="radio"
+                  value="pick up from store"
+                  name="optradio"
+                />pick up from store</label
+              >
+              <p class="small">I will pick this up my self from the store</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- payment method -->
+        <div class="row">
+          <hr />
+          <div class="col-sm-4 col-md-4">
+            <strong>3 Payment method</strong>
+          </div>
+
+          <div class="col-sm-4 col-md-4">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary ">
+                Cash on deliverry
+              </button>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-primary dropdown-toggle disabled"
+                data-toggle="dropdown"
+              >
+                Mobile banking <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">CBE birr</a></li>
+                <li><a href="#">Oro cash</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
         
-       
-    </div>
 
-    <!-- payment method -->
+
+      
+        <!-- Shipping adress -->
+     
+
+
+        <!-- review items and shipping -->
     <div class="row">
         <hr>
             <div class="col-sm-4 col-md-4">
-              <strong>2 Payment method</strong>
             </div>
+            <br>
+            <!-- for each product -->
             
-                    <div class="col-sm-4 col-md-4">
-                        <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Cash on deliverry <span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Cash on delivery</a></li>
-                                <li><a href="#">Pick up from store</a></li>
-                                </ul>
-                            </div>
-                    </div>
-                  <div class="col-sm-4 col-md-4">
-                        <p style="font-size: 12px; color:#333">Download our <span style="color:#337ab7">android app</span> to perform mobile banking payment</p>
-                      </div>
+            <div class="row">
+                
+                <div class="col-sm-6">
+                    <h4 style="color:#337ab7">  <strong>Shipping message: </strong></h4>
+                    <%products.forEach(function(product){ %>
             
-           
-        </div>
-            <!-- review items and shipping -->
-        <div class="row">
-            <hr>
-                <div class="col-sm-4 col-md-4">
-                  <strong>3 Review itmes and shipping</strong>
-                </div>
-                <br>
-                <!-- for each product -->
-                <div class="row">
-                    <div class="col-sm-6">
-                  <h4 style="color:#337ab7">  <strong>Shipping message: </strong></h4>
-                  <div class="row">
-                      <div class="col-md-6">
-                          <img src="image.png" width="100" height="100">
-                      </div>
-                      <div class="col-md-6">
-                            <p>product name (color) - size</p>
-                            <br>
-                            <p>price</p>
-                           <br>
-                            <div class="well">QTY: 1</div>
-                            <br>
-                            sold by: store name
-
-                        </div>
-                        
+              <div class="row">
+                  <div class="col-md-6">
+                      <img src="<%=product.item.image%>" width="100" height="100">
                   </div>
-                </div>
-                <div class="col-md-6 text-center " >
-                        <h5> <strong>shiping date </strong></h5>
-                        <div class="row pull-right ">
-                        <div class="col-md-6">
-                         
-                                <div class="form-group">
-                                  <input
-                                    class="form-control"
-                                    type="text"
-                                    name="pname"
-                                    placeholder="product name"
-                                  />
-                                </div>
-                              </div>
-                          
+                  <div class="col-md-6">
+                        <p><%=product.item.pname%> (color) - size</p>
+                      
+                        <p><%=product.item.price%> br </p>
+                     
+                        <div class="well well-sm">QTY: <%=product.qty%></div>
+                        
+                        sold by: store name
 
-                              <div class="col-sm-6 col-md-6">
-                                <a href="/#" class="btn btn-default ">change</a>
-                              </div>
-                            </div>    
-                </div>
-                </div>  
-               
+                    </div>
+                    
+              </div>
+              <%})%>
+            </div>
             
-        </div>
-       </form>
+            <div class="col-md-6 text-center " >
+                    <h5> <strong>shiping date </strong></h5>
+                    <div class="row pull-right ">
+                    <div class="col-md-6">
+                     
+                            <div class="form-group">
+                              <input
+                                class="form-control"
+                                type="text"
+                                name="pname"
+                                placeholder="product name"
+                              />
+                            </div>
+                          </div>
+                      
 
-         
-      </form>
+                          <div class="col-sm-6 col-md-6">
+                            <a href="/#" class="btn btn-default ">change</a>
+                          </div>
+                        </div>    
+            </div>
+            </div>  
+           
+        
     </div>
-    <div class="col-sm-3">
-      <div class="panel panel-default" style="padding:5px">
-        <div class="panel-body">
-          <a href="/productcatalogue" class="btn btn-success btn-block"
-            >Place your order</a
-          >
-          <p style="font-size: 11px; text-align: center; margin-top: 4px;">
-            by placing your order, you agree to Adulis.com's privacy notice and
-            condition of use
-          </p>
-        </div>
-        <div class="panel-footer">
-          <strong> Order Summary</strong>
+    
 
-          <div class="row" style="font-size: 12px">
-            <div class="col-sm-6 col-md-6">
-              <p>items:</p>
-              <p>Shipping and heading:</p>
-              <br />
-              <p>Total before tax:</p>
-              <p>Estimated tax to be collected</p>
-            </div>
-            <div class="col-sm-6 col-md-6">
-              <p>147 br</p>
-              <p>0.00br</p>
-              <hr />
-              <p>147br</p>
-              <p>0.00br</p>
-            </div>
+     
+   
+</div>
+
+<div class="col-sm-3">
+    <div class="panel panel-default" style="padding:5px">
+      <div class="panel-body">
+          <input type="submit" value="Place your order" class="btn btn-success btn-block" />
+     
+         
+        <p style="font-size: 11px; text-align: center; margin-top: 4px;">
+          by placing your order, you agree to Adulis.com's privacy notice and
+          condition of use
+        </p>
+      </div>
+      <div class="panel-footer">
+        <strong> Order Summary</strong>
+
+        <div class="row" style="font-size: 12px">
+          <div class="col-sm-6 col-md-6">
+            <p>items:</p>
+            <p>Shipping and heading:</p>
+            <br />
+            <p>Total before tax:</p>
+            <p>Estimated tax to be collected</p>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <p><%=totalPrice%> br</p>
+            <p>0.00br</p>
+            <hr />
+            <p>147br</p>
+            <p>0.00br</p>
           </div>
         </div>
-        <div class="panel-footer">
-          <strong style="color:#337ab7">Order total: 147 br</strong>
-        </div>
+      </div>
+      <div class="panel-footer">
+        <strong style="color:#337ab7">Order total:<%=totalPrice%> br</strong>
       </div>
     </div>
   </div>
-  <a href="/productcatalogue" class="btn btn-default ">Back</a>
+</form>
+    </div>
+  </div>
 </div>

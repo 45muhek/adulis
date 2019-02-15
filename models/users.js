@@ -12,6 +12,10 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  role: {
+    type: String,
+    default: "customer"
+  },
   firstname: {
     type: String,
     required: true

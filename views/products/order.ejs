@@ -1,0 +1,48 @@
+<% include ../partials/header%>
+
+<div class="container">
+  <div class="row">
+    <h3>Order</h3>
+    <div class="col-md-8 col-md-offset-2">
+      <h2>My orders</h2>
+      <%orders.forEach(function(order){ %>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class="list-group">
+            <%order.items.forEach(function(item){ %>
+            <li class="list-group-item">
+              <span class="badge"><%=item.price%>ETB</span>
+              <span
+                class=" <%if(order.status==='pending'){ %>
+              label label-success
+              <%}%>
+              <% if(order.status==='delivered'){ %>
+              label label-primary
+              <%}%>
+              <% if(order.status==='ontheway') {%>
+              label label-warning
+              <%}%>
+              "
+                ><%=order.status%></span
+              >
+              <strong><%=item.item.pname%></strong> | <%=item.qty%>
+              <span
+                class="<%if(order.status==='pending'){%> 
+                      visible        
+                  <%} else {%> invisible <%}%>
+                  
+                  "
+              >
+                <a href="#" class="btn btn-sm pull-right btn-default">update</a>
+              </span>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+        <div class="panel-footer"><%=order.cart.totalPrice%> ETB</div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
