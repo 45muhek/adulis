@@ -1,0 +1,8 @@
+to do:
+    create a user profile with role
+    add aditionals:
+        comments
+        ratting
+        views
+        report 
+    

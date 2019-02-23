@@ -1,0 +1,74 @@
+<%include ../partials/header%>
+
+<div class="texts">
+    <h1>All products</h1>
+</div>
+<div class="container">
+    <a href="/productcatalogue/new" class="btn btn-default "> add new</a>
+</div>
+<br>
+<%
+allProducts.forEach(function(product){
+%>
+
+
+<div class="col-sm-3 col-xs-12 text-center" style="display:flex; flex-wrap:wrap;">
+    <div class="panel panel-default text-center">
+
+        <div class="panel-headingone">
+
+
+            <a href="/productcatalogue/<%= product._id %>">
+
+
+                <h3 style="color:#404040;">
+                    <%=product.pname%>
+                </h3>
+        </div>
+        <div class="panel-body panel-bodyone">
+
+            <div class="img-thumbnail" style="position: relative;">
+                <img src="<%=product.image%>" width="200" height="250" class="img-responsive">
+            </div>
+        </div>
+        <div class="panel-footer panel-footerone">
+            <h3>
+                <%=product.price%>
+            </h3>
+            <h4>
+                <%=product.manu%>
+                <br>
+
+
+            </h4>
+
+
+            <div class="rating">
+                <span class="starRating">
+                    <% 
+                    var rateIndex= parseInt(product.rating.averge);
+                    var rated=false;
+                   
+                        for (let j = 0; j < rateIndex ; j++) {
+                        %>
+                    <img src="images/star1.png">
+                    <%
+                        } rated=true; %>
+                    <% for (let i = 0; i < 5-rateIndex ; i++) {
+                            if(!rated)%>
+                    <img src="images/star.png">
+
+                    <% } %>
+                </span>
+            </div>
+            <a class="btn btn-lg" href="/add-to-cart/<%=product._id%>">add to cart</a>
+
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+
+<%});%>

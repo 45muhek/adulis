@@ -1,0 +1,45 @@
+<% include ../partials/header%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>First name</th>
+
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%users.forEach(function(user){ %>
+              <tr>
+                <td><%=user.firstname%></td>
+
+                <td><%=user.lastname%></td>
+                <td><%=user.username%></td>
+
+                <td><%=user.email%></td>
+                <td></td>
+                <td>
+                  <a
+                    class="bt btn-default btn-lg"
+                    href="/order/assign_transporter"
+                    ><i class="fa fa-send "> </i>
+                  </a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

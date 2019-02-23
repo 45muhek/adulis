@@ -1,0 +1,47 @@
+{
+  "name": "adulis",
+  "version": "1.0.0",
+  "description": "adulis aims to be the most comprehansable and advance ecommerce system in Ethiopia",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.14.1",
+    "concurrently": "^4.1.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "csrf": "^3.0.6",
+    "csurf": "^1.9.0",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-sanitizer": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^4.1.12",
+    "nodemon": "^1.18.9",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "client-intall": "npm install --prefix client",
+    "start": "node app.js",
+    "server": "nodemon node.js",
+    "client": "npm start --prefix client",
+    "adulis": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bini47/adulis-web.git"
+  },
+  "author": "biniyam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bini47/adulis-web/issues"
+  },
+  "homepage": "https://github.com/bini47/adulis-web#readme"
+}
