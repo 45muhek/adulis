@@ -26,24 +26,21 @@ import "../../plugins/rs-plugin/css/settings.css"; */
 export class Customer extends Component {
   render() {
     return (
-      <Provider store={store}>
-        {" "}
-        <Router>
-          <div>
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/forget_pass" component={ForgetPass} />
-            <Route exact path="/shop" component={ShopMain} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/checkout" component={Checkout} />
-            <Route exact path="/single-product" component={SingleProduct} />
-            <Footer />
-            <PopUpContactForm />
-          </div>
-        </Router>
-      </Provider>
+      <Router>
+        <div>
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/forget_pass" component={ForgetPass} />
+          <Route exact path="/shop" component={ShopMain} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/single-product" component={SingleProduct} />
+          <Footer />
+          <PopUpContactForm />
+        </div>
+      </Router>
     );
   }
 }

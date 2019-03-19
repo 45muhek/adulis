@@ -9,12 +9,13 @@ Cart = require("../models/cart");
 //@route GET api/productcatalogue
 //@desc view all products
 //access public
-router.get("/productcatalogue", function(req, res) {
+router.get("/products", function(req, res) {
   Product.find({}, function(err, allProducts) {
+    const errors = {};
     if (err) {
-      console.log(err);
+      res.status(400).json(err);
     } else {
-      res.render("products/productcatalogue", { allProducts, allProducts });
+      res.json({ allProducts, allProducts });
     }
   });
 });
@@ -33,7 +34,9 @@ router.post("/product", function(req, res) {
 
   req.checkBody("stokeamount", "Stock Ammount field is required").notEmpty();
 
-  req.checkBody("description", "Product description field is required").notEmpty();
+  req
+    .checkBody("description", "Product description field is required")
+    .notEmpty();
 
   req.checkBody("manufacturer", "manufacturer field is required").notEmpty();
 
@@ -98,7 +101,7 @@ router.post("/product", function(req, res) {
 //@route GET api/productcata;pgue/:id
 //@desc view single product
 //access public
-router.get("/productcatalogue/:id", function(req, res) {
+router.get("/product/:id", function(req, res) {
   Product.findByIdAndUpdate(req.params.id)
     .populate("comments")
     .exec(function(err, foundProduct) {
@@ -130,11 +133,11 @@ router.get("/add-to-cart/:id", function(req, res) {
   Product.findById(productId, function(err, product) {
     if (err) {
       console.log(err);
-      return res.redirect("/productcatalogue");
+      return res.redirect("/products");
     }
     cart.add(product, product.id);
     req.session.cart = cart;
-    res.redirect("/productcatalogue");
+    res.redirect("/products");
   });
 });
 //@route GET api/shopping-cart
@@ -232,7 +235,7 @@ router.post("/product/rate", (req, res) => {
 
   res.redirect("/productcatalogue/" + id);
 });
- 
+
 router.get("/add-new", (req, res) => {
   res.render("products/new");
 });

@@ -30,9 +30,7 @@ class Navbar extends Component {
     const guestLinks = (
       <ul id="menu-secondary-menu" className="secondary-menu">
         <li className="menu-item-1568">
-          <a href="#" onClick={this.onLogoutClick.bind(this)}>
-            Login
-          </a>
+          <a href="#">Login</a>
         </li>
         <li className="menu-item-1573">
           <a href="contact.html">Sign Up</a>
@@ -46,7 +44,9 @@ class Navbar extends Component {
     const authLinks = (
       <ul id="menu-secondary-menu" className="secondary-menu">
         <li className="menu-item-1573">
-          <a href="contact.html">Logout</a>
+          <a href="#" onClick={this.onLogoutClick.bind(this)}>
+            Logout
+          </a>
         </li>
         <li className="menu-item-1574">
           <a href="shop.html">Get The App!</a>
