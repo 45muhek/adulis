@@ -1,97 +1,221 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import TopCollapsable from "./Landing/TopCollapsable";
+import HomeSlider from "./Landing/HomeSlider";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import classnames from "classnames";
+
+import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
-    render() {
-        return (
-            <div>
-                {/* Hidden Top Area */}
-                <div id="Sliding-top">
-                    <div className="widgets_wrapper">
-                        <div className="container">
-                            <div className="one-fourth column">
-                                {/* Login form */}
-                                <aside id="widget_mfn_login-2" className="widget widget_mfn_login">
-                                    <div className="mfn-login">
-                                        <h4>Login | Register</h4>
-                                        <form name="loginform" id="loginform" action="#" method="post">
-                                            <p className="login-username">
-                                                <label htmlFor="user_login">Username</label>
-                                                <input type="text" name="log" id="user_login" className="input" defaultValue size={20} />
-                                            </p>
-                                            <p className="login-password">
-                                                <label htmlFor="user_pass">Password</label>
-                                                <input type="password" name="pwd" id="user_pass" className="input" defaultValue size={20} />
-                                            </p>
-                                            <p className="login-submit">
-                                                <input type="submit" name="wp-submit" id="wp-submit" className="button-primary" defaultValue="Log In" />
-                                                <input type="hidden" name="redirect_to" defaultValue="#" />
-                                            </p>
-                                        </form>
-                                        <div className="links">
-                                            <a href="#">Register</a><span className="sep">|</span><a href="#">Lost your password?</a>
-                                        </div>
-                                    </div>
-                                </aside>
-                            </div>
-                            <div className="one-fourth column">
-                                {/* Text Area */}
-                                <aside id="text-10" className="widget widget_text">
-                                    <div className="textwidget">
-                                        <p>
-                                            <span className="big">We reply on all questions within</span>
-                                        </p><span className="themecolor flv_header_number">24 h</span>
-                                        <div className="hr_dots flv_dots">
-                                            <span /><span /><span />
-                                        </div>
-                                        <p className="flv_center">
-                                            <span className="flv_grey">We offer support for our customers</span>
-                                            <br />
-                                            <b><i className="icon-clock" /> Mon - Fri 8:00am - 6:00pm <span className="tooltip" data-tooltip="we are located in Europe">(GMT +1)</span> </b>
-                                        </p>
-                                    </div>
-                                </aside>
-                            </div>
-                            <div className="one-fourth column">
-                                {/* Text Area */}
-                                <aside id="text-11" className="widget widget_text">
-                                    <div className="textwidget">
-                                        <h5 className="flv_margin_b_5"><i className="icon-mail-line" /> Our address:</h5>
-                                        <p className="flv_margin_l_26">
-                                            <strong>Envato</strong>
-                                            <br /> Level 13, 2 Elizabeth St,
-                    <br /> Melbourne, Victoria 3000 Australia
-                  </p>
-                                        <h5 className="flv_margin_b_5"><i className="icon-phone" /> Have any questions?</h5>
-                                        <p className="flv_margin_l_26">
-                                            <a href="mailto:noreply@envato.com">noreply@envato.com</a>
-                                        </p>
-                                        <h5 className="flv_margin_b_5"><i className="icon-comment-line" /> Call us:</h5>
-                                        <p className="flv_margin_l_26">
-                                            <a href="tel:+61791803458">+61 (0) 7 9180 3458</a>
-                                        </p>
-                                    </div>
-                                </aside>
-                            </div>
-                            <div className="one-fourth column">
-                                {/* Text Area */}
-                                <aside id="text-12" className="widget widget_text">
-                                    <div className="textwidget"><img src="images/logo_footer.png" alt />
-                                        <p>
-                                            <span className="big">We love who we are and we are very proud to be the part of your business</span>
-                                        </p>
-                                        <p>
-                                            Curabitur sit amet magna quam. Praesent in libero vel <span className="tooltip" data-tooltip="Quis accumsan dolor">turpis pellentesque</span> egestas sit amet vel nunc. Nunc lobortis
-                                            dui neque quis.
-                  </p>
-                                    </div>
-                                </aside>
-                            </div>
+  onLogoutClick(e) {
+    e.preventDefault();
+    this.props.logoutUser();
+  }
+
+  render() {
+    const searchStyle = {
+      width: "80%",
+      float: "left",
+      padding: "13px"
+    };
+    const searchBtnStyle = {
+      marginBottom: " 0",
+      marginRight: "0",
+      marginLeft: "-7px"
+    };
+
+    const { isAuthenticated, user } = this.props.auth;
+    const guestLinks = (
+      <ul id="menu-secondary-menu" className="secondary-menu">
+        <li className="menu-item-1568">
+          <a href="#" onClick={this.onLogoutClick.bind(this)}>
+            Login
+          </a>
+        </li>
+        <li className="menu-item-1573">
+          <a href="contact.html">Sign Up</a>
+        </li>
+        <li className="menu-item-1574">
+          <a href="shop.html">Get The App!</a>
+        </li>
+      </ul>
+    );
+
+    const authLinks = (
+      <ul id="menu-secondary-menu" className="secondary-menu">
+        <li className="menu-item-1573">
+          <a href="contact.html">Logout</a>
+        </li>
+        <li className="menu-item-1574">
+          <a href="shop.html">Get The App!</a>
+        </li>
+      </ul>
+    );
+
+    const profileLink = (
+      <div className="wpml-languages enabled">
+        <a className="active">
+          <img
+            src="css/images/user_3.png"
+            alt={user.firstname}
+            style={{ width: "25px", marginRight: "5x" }}
+            title="set your profile picture to get a higher varification rate"
+          />
+          <span style={{ textAlign: "center", marginRight: "5" + "px" }}>
+            {user.firstname}
+          </span>
+        </a>
+      </div>
+    );
+    return (
+      <div>
+        <TopCollapsable />
+        <div id="Wrapper">
+          {/* Header Wrapper  */}
+          <div id="Header_wrapper">
+            {/*  Header */}
+            <header id="Header">
+              <div id="Top_bar">
+                <div className="container">
+                  <div className="column one">
+                    <div className="top_bar_left clearfix">
+                      {/* Logo */}
+                      <div className="logo" id="logo">
+                        <div className="column one-forth column_column">
+                          <a
+                            style={{ float: "left" }}
+                            href="index.html"
+                            title="BeTheme - Best Html Theme Ever"
+                          >
+                            <img
+                              className="scale-with-grid"
+                              src="images/logo1.png"
+                              alt="BeTheme - Best Html Theme Ever"
+                            />
+                          </a>
                         </div>
+                        <div className="column one-second column_column">
+                          <div className="clearfix">
+                            <input
+                              type="text"
+                              style={searchStyle}
+                              placeholder="search"
+                            />
+                            <a
+                              className="button button_left button_theme button_js "
+                              style={searchBtnStyle}
+                              href="#"
+                              target="_blank"
+                            >
+                              <span className="button_icon">
+                                <i className="icon-search" />
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <a href="#" className="sliding-top-control"><span><i className="plus icon-down-open-mini" /><i className="minus icon-up-open-mini" /></span></a>
+                    {/* Main menu */}
+                    <div className="menu_wrapper">
+                      <nav id="menu">
+                        <ul id="menu-main-menu" className="menu">
+                          <li>
+                            <a
+                              href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
+                              target="_blank"
+                            >
+                              <span>Departments</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
+                              target="_blank"
+                            >
+                              <span>Featured</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="features-color-skins.html">
+                              <span>Discount Window</span>
+                            </a>
+                          </li>
+                          <li className="menu-item">
+                            <a href="home-modern-header.html">
+                              <span>Sell</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="typography.html">
+                              <span>Our services</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="about.html">
+                              <span>About Us</span>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a href="blog-sidebar-classNameic.html">
+                              <span>FAQ</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                      <a className="responsive-menu-toggle" href="#">
+                        <i className="icon-menu" />
+                      </a>
+                    </div>
+                    {/* Secondary menu area - only for certain pages */}
+                    <div className="secondary_menu_wrapper">
+                      <nav
+                        id="secondary-menu"
+                        className="menu-secondary-menu-container"
+                      >
+                        {isAuthenticated ? authLinks : guestLinks}
+                      </nav>
+                    </div>
+                    {/* Banner area - only for certain pages */}
+                    <div className="banner_wrapper">
+                      <a href="#" target="_blank">
+                        <img src="images/468x60.gif" alt="" />
+                      </a>
+                    </div>
+                    {/* Header Searchform area */}
+                  </div>
+                  <div className="top_bar_right">
+                    <div className="top_bar_right_wrapper">
+                      {/* Shopping cart icon */}
+                      <div className="wpml-languages enabled">
+                        {isAuthenticated ? profileLink : ""}
+                      </div>
+                      <a id="header_cart" href="#">
+                        <i className="icon-basket" />
+                        <span>8</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        )
-    }
+              </div>
+            </header>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-export default Navbar;
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Navbar);

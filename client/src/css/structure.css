@@ -419,7 +419,7 @@ body:not(.template-slider) #Content {
 .under-construction .section-uc-2 {
 	padding-top: 40px;
 	background-color: #f5f5f5;
-	background: url(../../images/stripes/stripes_3_b.png) repeat center
+	background: url(../images/stripes/stripes_3_b.png) repeat center
 
 
 
@@ -531,7 +531,7 @@ body.nice-scroll:not(.layout-boxed) {
 	left: 0;
 	bottom: -3px;
 	z-index: 1;
-	background: url(../../images/box_shadow.png) repeat-x left top
+	background: url(../images/box_shadow.png) repeat-x left top
 
 
 
@@ -644,7 +644,7 @@ body.nice-scroll:not(.layout-boxed) {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background-color: #f8f8f8;
-	background-image: url(../../images/stripes/stripes_3_b.png)
+	background-image: url(../images/stripes/stripes_3_b.png)
 }
 .pager .pages a, .pager .pages span.page-numbers {
 	display: inline-block;
@@ -676,7 +676,7 @@ body.nice-scroll:not(.layout-boxed) {
 /* Load more button ------------------------------------------------------------------ */
 
 .pager_lm {
-	background: url(../../images/preloader.gif) no-repeat center 17px;
+	background: url(../images/preloader.gif) no-repeat center 17px;
 	text-align: center
 }
 .pager_lm .pager_load_more {
@@ -811,7 +811,7 @@ body.nice-scroll:not(.layout-boxed) {
 }
 .fixed-nav.format-quote .photo {
 	background-color: #eee;
-	background-image: url(../../images/blockquote.png);
+	background-image: url(../images/blockquote.png);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 50% auto
@@ -821,7 +821,7 @@ body.nice-scroll:not(.layout-boxed) {
 }
 .fixed-nav.format-link .photo {
 	background-color: #eee;
-	background-image: url(../../images/link.png);
+	background-image: url(../images/link.png);
 	background-position: center center;
 	background-repeat: no-repeat
 }
@@ -851,7 +851,7 @@ body.nice-scroll:not(.layout-boxed) {
 	padding: 15px;
 	margin: 0;
 	font-size: 100%;
-	background-image: url(../../images/stripes/stripes_5_b.png);
+	background-image: url(../images/stripes/stripes_5_b.png);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1335,7 +1335,7 @@ body.minimalist-header.header-below:not(.template-slider) #Header {
 	position: absolute;
 	left: -10px;
 	top: 2px;
-	background-image: url(../../images/top_bar_right_shadow.png);
+	background-image: url(../images/top_bar_right_shadow.png);
 	background-repeat: repeat-y;
 	-moz-transform: skewX(0deg) skewY(-25deg);
 	-webkit-transform: skewX(0deg) skewY(-25deg);
@@ -1631,7 +1631,7 @@ body:not(.button-stroke) #Top_bar a.button.action_button {
 	z-index: 205;
 	margin: 0;
 	display: none;
-	background-image: url(../../images/box_shadow.png);
+	background-image: url(../images/box_shadow.png);
 	background-repeat: repeat-x;
 	background-position: left top
 }
@@ -2733,7 +2733,7 @@ body.mobile-side-slide {
 	left: 0;
 	bottom: -3px;
 	z-index: 1;
-	background: url(../../images/box_shadow.png) repeat-x left top
+	background: url(../images/box_shadow.png) repeat-x left top
 
 
 
@@ -3299,7 +3299,7 @@ body.mobile-side-slide {
 	padding-left: 200px;
 	margin-bottom: 0;
 	padding-bottom: 40px;
-	background: url(../../images/timeline_right.png) no-repeat 90px top;
+	background: url(../images/timeline_right.png) no-repeat 90px top;
 }
 .timeline .post-item:last-child {
 	padding-bottom: 20px;
@@ -3450,7 +3450,7 @@ body.mobile-side-slide {
 .post-nav {
 	padding: 10px 10px 4px 130px;
 	margin-bottom: 20px;
-	background-image: url(../../images/stripes/stripes_5_b.png);
+	background-image: url(../images/stripes/stripes_5_b.png);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -3725,7 +3725,7 @@ body.mobile-side-slide {
 .section-post-related .format-link .image_frame {
 	height: 180px;
 	background-color: rgba(255, 255, 255, .5);
-	background-image: url(../../images/link.png);
+	background-image: url(../images/link.png);
 	background-position: center center;
 	background-repeat: no-repeat
 }
@@ -3733,7 +3733,7 @@ body.mobile-side-slide {
 	display: block;
 	height: 180px;
 	background-color: rgba(255, 255, 255, .5);
-	background-image: url(../../images/photo.png);
+	background-image: url(../images/photo.png);
 	background-position: center center;
 	background-repeat: no-repeat
 }
@@ -4041,13 +4041,13 @@ body.mobile-side-slide {
 
 .Recent_posts ul li.format-link .photo {
 	background-color: #eee;
-	background-image: url(../../images/link.png);
+	background-image: url(../images/link.png);
 	background-position: center center;
 	background-repeat: no-repeat
 }
 .Recent_posts ul li.format-quote .photo {
 	background-color: #eee;
-	background-image: url(../../images/blockquote.png);
+	background-image: url(../images/blockquote.png);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 40% auto
@@ -4188,7 +4188,7 @@ body.mobile-side-slide {
 .widget_mfn_recent_comments ul li {
 	padding-bottom: 15px;
 	margin-bottom: 0!important;
-	background: url(../../images/recent_comments.png) no-repeat 4px top;
+	background: url(../images/recent_comments.png) no-repeat 4px top;
 	padding-left: 40px;
 	position: relative;
 	list-style: none!important
@@ -4228,7 +4228,7 @@ body.mobile-side-slide {
 .widget_recent_comments ul li {
 	padding-bottom: 5px;
 	padding-top: 6px;
-	background: url(../../images/recent_comments.png) no-repeat 4px top;
+	background: url(../images/recent_comments.png) no-repeat 4px top;
 	padding-left: 40px;
 	position: relative
 }
@@ -5238,7 +5238,7 @@ body:not(.with_aside) .portfolio_group.list .portfolio-item .portfolio-item-fw-w
 	-webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
 	border-radius: 3px;
-	background-image: url(../../images/stripes/stripes_10_w.png)
+	background-image: url(../images/stripes/stripes_10_w.png)
 }
 #comments .commentlist>li .reply a:hover.comment-reply-link {
 	text-decoration: none
@@ -5450,7 +5450,7 @@ ul.testimonials-slider{max-height:260px}
 	height: 100%;
 	width: 100%;
 	z-index: 3;
-	background: url(../../images/videomask.png) repeat center
+	background: url(../images/videomask.png) repeat center
 
 
 
@@ -5635,7 +5635,7 @@ ul.testimonials-slider{max-height:260px}
 /* Fancy heading */
 
 .dark .fancy_heading_line {
-	background-image: url(../../images/fancy_heading_hr_dark.png)
+	background-image: url(../images/fancy_heading_hr_dark.png)
 }
 
 /* Content slider */
@@ -5900,7 +5900,7 @@ html, body {
 		right: 0;
 		top: 0;
 		border-left: 1px solid rgba(0, 0, 0, 0.03);
-		background: url(../../images/menu-plus.png) center no-repeat;
+		background: url(../images/menu-plus.png) center no-repeat;
 	}
 	.header-simple #Top_bar #menu ul li.hover>.menu-toggle {
 		background: none !important;
@@ -6300,7 +6300,7 @@ html, body {
 		right: 0;
 		top: 0;
 		border-left: 1px solid rgba(0, 0, 0, 0.03);
-		background: url(../../images/menu-plus.png) center no-repeat;
+		background: url(../images/menu-plus.png) center no-repeat;
 	}
 	#Top_bar #menu ul li.hover>.menu-toggle {
 		background: none !important;
@@ -8423,7 +8423,7 @@ html, body {
 	}
 	.ui-tabs .ui-tabs-nav li a {
 		text-align: center;
-		background-image: url(../../images/bg_panel.png);
+		background-image: url(../images/bg_panel.png);
 		background-repeat: repeat-x;
 		background-position: left top
 	}
@@ -8480,7 +8480,7 @@ html, body {
 	}
 	.timeline_items li {
 		padding: 0 0 25px 150px !important;
-		background: url(../../images/timeline_right.png) no-repeat!important;
+		background: url(../images/timeline_right.png) no-repeat!important;
 		background-position: 50px top!important;
 		width: auto
 	}

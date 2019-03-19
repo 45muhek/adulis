@@ -1,0 +1,34 @@
+.logo_header {
+  text-align: center;
+  margin: 1em;
+}
+.login_panel {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 25px;
+  background: #fff;
+}
+.form_lable {
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 15px;
+}
+.form_input_full {
+  width: 100% !important;
+}
+.forgot_pass_txt {
+  margin-top: 5px;
+  text-align: right;
+}
+.btn_full_width {
+  width: 100% !important;
+}
+@media only screen and (max-width: 767px) {
+  .h {
+    color: red;
+  }
+  .login_panel {
+    box-shadow: none;
+    padding: 0px;
+    background: inherit;
+  }
+}

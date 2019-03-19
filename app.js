@@ -10,6 +10,7 @@ var express = require("express"),
   session = require("express-session"),
   flash = require("connect-flash"),
   validator = require("express-validator"),
+  jwt = require("passport-jwt"),
   MongoStore = require("connect-mongo")(session),
   methodOverride = require("method-override");
 
@@ -21,6 +22,8 @@ require("./config/passport-google-auth");
 
 //initializing routes
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use(methodOverride("_method"));
 app.use(validator());
 app.use(express.static("public"));
@@ -37,6 +40,8 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+//passport config
+require("./config/passport")(passport);
 //routes init
 var shopeRoutes = require("./routes/shop"),
   commentRoutes = require("./routes/comments"),
@@ -45,7 +50,11 @@ var shopeRoutes = require("./routes/shop"),
   profileRoutes = require("./routes/profile"),
   storeRoures = require("./routes/store"),
   checkoutRoutes = require("./routes/checkout"),
-  orderRoutes = require("./routes/order");
+  orderRoutes = require("./routes/order"),
+  adminControls = require("./routes/adminControl/statstics"),
+  auth = require("./routes/adminControl/auth"),
+  communications = require("./routes/communication"),
+  userActivity = require("./routes/adminControl/activityStatstics");
 
 //PASSPORT CONFIGURATION
 app.use(
@@ -75,6 +84,12 @@ app.use("/profile", profileRoutes);
 app.use("/store", storeRoures);
 app.use("/checkout", checkoutRoutes);
 app.use("/order", orderRoutes);
+app.use(communications);
 
-const port = process.env.PORT || 5000;
+//ADMIN CONTROLS
+app.use("/admin", adminControls);
+app.use("/auth", auth);
+app.use("/activity", userActivity);
+const port = 5000;
+
 app.listen(port, () => console.log("Adulis server running!"));

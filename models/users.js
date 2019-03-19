@@ -8,10 +8,7 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
-  username: {
-    type: String,
-    required: true
-  },
+
   role: {
     type: String,
     default: "customer"
@@ -31,6 +28,14 @@ var UserSchema = new Schema({
   avatar: {
     type: String,
     default: ""
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  isOnline: {
+    type: Boolean,
+    default: false
   },
   googleid: {
     type: String

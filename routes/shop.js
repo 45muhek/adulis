@@ -6,6 +6,9 @@ var Product = require("../models/products"),
   Comment = require("../models/comments");
 Cart = require("../models/cart");
 
+//@route GET api/productcatalogue
+//@desc view all products
+//access public
 router.get("/productcatalogue", function(req, res) {
   Product.find({}, function(err, allProducts) {
     if (err) {
@@ -30,7 +33,7 @@ router.post("/product", function(req, res) {
 
   req.checkBody("stokeamount", "Stock Ammount field is required").notEmpty();
 
-  req.checkBody("description", "Product Name field is required").notEmpty();
+  req.checkBody("description", "Product description field is required").notEmpty();
 
   req.checkBody("manufacturer", "manufacturer field is required").notEmpty();
 
@@ -92,17 +95,23 @@ router.post("/product", function(req, res) {
     }
   });
 });
-
+//@route GET api/productcata;pgue/:id
+//@desc view single product
+//access public
 router.get("/productcatalogue/:id", function(req, res) {
-  Product.findById(req.params.id)
+  Product.findByIdAndUpdate(req.params.id)
     .populate("comments")
     .exec(function(err, foundProduct) {
       if (err) {
         //console.log(err);
         res.send(err);
       } else {
-        var comment_count = foundProduct.comments.length;
+        /* INCRIMENTING THE NUMBER OF VIEWS */
 
+        const views = foundProduct.view * 1 + 1;
+        foundProduct.view = views;
+        var comment_count = foundProduct.comments.length;
+        foundProduct.save();
         res.render("products/single-product", {
           product: foundProduct,
           comment_count: comment_count
@@ -112,7 +121,9 @@ router.get("/productcatalogue/:id", function(req, res) {
 });
 
 //CART ROUTES
-
+//@route GET api/add-to-cart/:id
+//@desc add a single product to cart
+//access public
 router.get("/add-to-cart/:id", function(req, res) {
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {}); //pass the cart if it exist or empity if it doesnt
@@ -126,7 +137,9 @@ router.get("/add-to-cart/:id", function(req, res) {
     res.redirect("/productcatalogue");
   });
 });
-
+//@route GET api/shopping-cart
+//@desc view cart
+//access public
 router.get("/shopping-cart", function(req, res) {
   if (!req.session.cart) {
     return res.render("products/shopping-cart", { products: null });
@@ -148,7 +161,9 @@ router.get("/productcatalogue/:id/add-comments", function(req, res) {
       res.render("comments/new", { product: product });
     }
   });
-
+  //@route GET api/product/:iid.comments
+  //@desc add comments on a product
+  //access private
   router.post("/product/:id/comments", function(req, res) {
     Product.findById(req.params.id, function(err, product) {
       if (err) {
@@ -171,6 +186,9 @@ router.get("/productcatalogue/:id/add-comments", function(req, res) {
 });
 
 //RATTING
+//@route GET api/product/rate
+//@desc rate a product
+//access public
 router.post("/product/rate", (req, res) => {
   var id = req.body.rating.pid;
 
@@ -213,6 +231,10 @@ router.post("/product/rate", (req, res) => {
     .catch(err => console.log(err));
 
   res.redirect("/productcatalogue/" + id);
+});
+ 
+router.get("/add-new", (req, res) => {
+  res.render("products/new");
 });
 
 function isLoggedIn(req, res, next) {

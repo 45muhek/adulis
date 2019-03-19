@@ -4,8 +4,10 @@
   "description": "adulis aims to be the most comprehansable and advance ecommerce system in Ethiopia",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "validator": "^9.4.1",
+    "passport-jwt": "^4.0.0",
     "bcrypt-nodejs": "^0.0.3",
+    "jsonwebtoken": "^8.2.0",
     "body-parser": "^1.14.1",
     "concurrently": "^4.1.0",
     "connect-flash": "^0.1.1",

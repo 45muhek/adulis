@@ -1,0 +1,39 @@
+.cart_btn {
+  padding: 11px 11px !important;
+}
+.woocommerce ul.products li.product .mybutton {
+  margin-top: 0 !important;
+  float: right;
+  margin-right: 0;
+}
+.adulis_cart_icon {
+  padding: 11px 10px !important;
+}
+.woocommerce ul.products li.product .desc {
+  padding: 15px 10px !important;
+}
+.woocommerce .widget_shopping_cart ul.product_list_widget li #right_element {
+  float: right !important;
+}
+.mrb-40 {
+  margin-bottom: 40px !important;
+}
+.mrt-20 {
+  margin-top: 20px !important;
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .mrb-40 {
+    margin-bottom: 80px !important;
+  }
+  .mrt-20 {
+    margin-top: 0px !important;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .mrb-40 {
+    margin-bottom: 80px !important;
+  }
+  .mrt-20 {
+    margin-top: 0px !important;
+  }
+}

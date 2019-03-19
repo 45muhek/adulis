@@ -1,6 +1,8 @@
-var passport = require("passport");
-var User = require("../models/users");
-var LocalStrategy = require("passport-local").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const User = require("../models/users");
+const keys = require("../config/keys");
+const passport = require("passport");
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -11,96 +13,21 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-passport.use(
-  "local.signup",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true
-    },
-    function(req, email, password, done) {
-      req
-        .checkBody("email", "Invalid email")
-        .notEmpty()
-        .isEmail();
-      req
-        .checkBody("password", "password too short")
-        .notEmpty()
-        .isLength({ min: 8 });
-      var errors = req.validationErrors();
-      if (errors) {
-        var messages = [];
-        errors.forEach(function(error) {
-          messages.push(error.msg);
-        });
-        return done(null, false, req.flash("error", messages));
-      }
-      User.findOne({ email: email }, function(err, user) {
-        if (err) {
-          console.log(err);
-          return done(err);
-        }
-        if (user) {
-          return done(null, false, { message: "Email is already in use" });
-        }
-        var newUser = new User();
-        newUser.firstname = req.body.firstname;
-        newUser.lastname = req.body.lastname;
-        newUser.username = req.body.username;
+const opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = keys.secretOrKey;
 
-        newUser.email = email;
-        newUser.password = newUser.encryptPassword(password);
-        newUser.save(function(err, result) {
-          if (err) {
-            console.log(err);
-            return done(err);
+module.exports = passport => {
+  passport.use(
+    new JwtStrategy(opts, (jwt_payload, done) => {
+      User.findById(jwt_payload.id)
+        .then(user => {
+          if (user) {
+            return done(null, user);
           }
-
-          return done(null, newUser);
-        });
-      });
-    }
-  )
-);
-passport.use(
-  "local.signin",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true
-    },
-    function(req, email, password, done) {
-      req
-        .checkBody("email", "Invalid email")
-        .notEmpty()
-        .isEmail();
-      req
-        .checkBody("password", "password too short")
-        .notEmpty()
-        .isLength({ min: 8 });
-      var errors = req.validationErrors();
-      if (errors) {
-        var messages = [];
-        errors.forEach(function(error) {
-          messages.push(error.msg);
-        });
-        return done(null, false, req.flash("error", messages));
-      }
-      User.findOne({ email: email }, function(err, user) {
-        if (err) {
-          console.log(err);
-          return done(err);
-        }
-        if (!user) {
-          return done(null, false, { message: "No user found" });
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, { message: "Wrong password" });
-        }
-        return done(null, user);
-      });
-    }
-  )
-);
+          return done(null, false);
+        })
+        .catch(err => console.log(err));
+    })
+  );
+};

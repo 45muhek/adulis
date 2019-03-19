@@ -22,7 +22,6 @@ router.get("/auth/google/redirect", passport.authenticate("google"), function(
   res.redirect("/");
 });
 
-
 function isLoggedIn(req, res) {
   if (req.isAuthenticated()) {
     return next();

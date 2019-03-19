@@ -14,7 +14,9 @@ router.get("/", (req, res) => {
     totalPrice: cart.totalPrice
   });
 });
-
+//@route GET api/order/view
+//@desc view customers own order
+//access private(customer)
 router.get("/view", (req, res) => {
   Order.find({ user: req.user }, (err, orders) => {
     if (err) console.log(err);
@@ -83,7 +85,9 @@ router.post("/:id", (req, res) => {
         if (req.body.from) orderIssentials.transaction.from.account = req.body.from;
     }) */
 });
-
+//@route GET api/order/all
+//@desc oview all order requests
+//access private(pm)
 router.get("/all", (req, res) => {
   Order.find({}, function(err, orders) {
     if (err) {
@@ -98,7 +102,9 @@ router.get("/all", (req, res) => {
     }
   });
 });
-
+//@route GET api/set-transporter
+//@desc set transporter for an order
+//access set_transporter
 router.get("/set_transporter", (req, res) => {
   User.find({ role: "transporter" }, function(err, users) {
     if (err) {
@@ -108,7 +114,9 @@ router.get("/set_transporter", (req, res) => {
     }
   });
 });
-
+//@route GET api/order
+//@desc test order route
+//access public
 router.get("/user/:id", (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) console.log(err);
@@ -118,7 +126,5 @@ router.get("/user/:id", (req, res) => {
   });
 });
 
-router.get("/asign_transporter:id",(req,res)=>{
-
-})
+router.get("/asign_transporter:id", (req, res) => {});
 module.exports = router;

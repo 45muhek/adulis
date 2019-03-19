@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Navbar from './components/layouts/Navbar';
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Customer from "./components/parents/Customer";
+import { Provider } from "react-redux";
 class App extends Component {
   render() {
     return (
-      <div className="App">
-          <Navbar />
+      <div>
+        <Customer />
       </div>
     );
   }

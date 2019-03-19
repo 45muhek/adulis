@@ -41,7 +41,8 @@ var adulisSchema = new mongoose.Schema({
     type: String
   },
   view: {
-    type: String
+    type: String,
+    default: 0
   },
   comments: [
     {
