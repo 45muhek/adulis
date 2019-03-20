@@ -15,7 +15,8 @@ router.get("/products", function(req, res) {
     if (err) {
       res.status(400).json(err);
     } else {
-      res.json({ allProducts, allProducts });
+      console.log(allProducts)
+      res.json({ allProducts });
     }
   });
 });

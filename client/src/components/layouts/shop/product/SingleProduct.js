@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SidePanel from "./SidePanel";
+import SidePanel from "../SidePanel";
 
 export default class SingleProduct extends Component {
   render() {

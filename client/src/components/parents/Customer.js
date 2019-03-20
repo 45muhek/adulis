@@ -10,10 +10,10 @@ import Landing from "../layouts/Landing/Landing";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import ForgetPass from "../auth/ForgetPass";
-import ShopMain from "../layouts/shop/ShopMain";
+import ShopMain from "../layouts/shop/product/ShopMain";
 import Cart from "../layouts/shop/Cart";
 import Checkout from "../layouts/shop/Checkout";
-import SingleProduct from "../layouts/shop/SingleProduct";
+import SingleProduct from "../layouts/shop/product/SingleProduct";
 
 /* import "../../css/global.css";
 import "../../css/structure.css";
