@@ -36,7 +36,7 @@ export class Customer extends Component {
           <Route exact path="/shop" component={ShopMain} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/single-product" component={SingleProduct} />
+          <Route exact path="/product/:id" component={SingleProduct} />
           <Footer />
           <PopUpContactForm />
         </div>

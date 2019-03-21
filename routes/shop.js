@@ -15,7 +15,6 @@ router.get("/products", function(req, res) {
     if (err) {
       res.status(400).json(err);
     } else {
-      console.log(allProducts)
       res.json({ allProducts });
     }
   });
@@ -116,7 +115,7 @@ router.get("/product/:id", function(req, res) {
         foundProduct.view = views;
         var comment_count = foundProduct.comments.length;
         foundProduct.save();
-        res.render("products/single-product", {
+        res.json({
           product: foundProduct,
           comment_count: comment_count
         });
@@ -134,13 +133,29 @@ router.get("/add-to-cart/:id", function(req, res) {
   Product.findById(productId, function(err, product) {
     if (err) {
       console.log(err);
-      return res.redirect("/products");
     }
     cart.add(product, product.id);
-    req.session.cart = cart;
-    res.redirect("/products");
+    const totalQty = (req.session.cart = cart);
+    res.json(totalQty);
   });
 });
+//@route GET api/shopping-cart
+//@desc view cart
+//access public
+router.get("/cart-total-qty", (req, res) => {
+  if (!req.session.cart) res.json("0");
+  else if (
+    typeof req.session.cart === "undefined" ||
+    req.session.cart == null ||
+    typeof req.session.cart.totalQty === "undefined"
+  ) {
+    res.json("0");
+  } else {
+    const { totalQty } = req.session.cart;
+    res.json(totalQty);
+  }
+});
+
 //@route GET api/shopping-cart
 //@desc view cart
 //access public
@@ -149,7 +164,8 @@ router.get("/shopping-cart", function(req, res) {
     return res.render("products/shopping-cart", { products: null });
   }
   var cart = new Cart(req.session.cart);
-  res.render("products/shopping-cart", {
+  console.log("no mercy",cart.generateArray())
+  res.json({
     products: cart.generateArray(),
     totalPrice: cart.totalPrice
   });

@@ -7,14 +7,20 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 
 import { logoutUser } from "../../actions/authActions";
+import { getToatalCartQty } from "../../actions/productActions";
 
 class Navbar extends Component {
+  componentDidMount() {
+    this.props.getToatalCartQty();
+  }
+
   onLogoutClick(e) {
     e.preventDefault();
     this.props.logoutUser();
   }
 
   render() {
+    if (typeof this.props.cart_qty === undefined) this.props.cart_qty = "0";
     const searchStyle = {
       width: "80%",
       float: "left",
@@ -27,6 +33,7 @@ class Navbar extends Component {
     };
 
     const { isAuthenticated, user } = this.props.auth;
+    const { cart_qty } = this.props.cart;
     const guestLinks = (
       <ul id="menu-secondary-menu" className="secondary-menu">
         <li className="menu-item-1568">
@@ -194,7 +201,7 @@ class Navbar extends Component {
                       </div>
                       <a id="header_cart" href="#">
                         <i className="icon-basket" />
-                        <span>8</span>
+                        <span>{cart_qty}</span>
                       </a>
                     </div>
                   </div>
@@ -209,13 +216,16 @@ class Navbar extends Component {
 }
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  getToatalCartQty: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  cart_qty: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
+  cart: state.cart,
   auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, getToatalCartQty }
 )(Navbar);

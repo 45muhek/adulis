@@ -52,14 +52,9 @@ class ShopMain extends Component {
                     <div class="products_wrapper isotope_wrapper">
                       <ul class="products grid">
                         {
-                          (productsContent = products.allProducts.map(
-                            product => (
-                              <ProductItem
-                                key={product._id}
-                                product={product}
-                              />
-                            )
-                          ))
+                          (productsContent = products.map(product => (
+                            <ProductItem key={product._id} product={product} />
+                          )))
                         }
                       </ul>
                     </div>
