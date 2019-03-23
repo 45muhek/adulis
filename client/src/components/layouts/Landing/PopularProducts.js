@@ -23,7 +23,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-woo-album-1.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -34,10 +34,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-woo-album-1.html"
-                        >
+                        <a class="link" href="#">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -45,9 +42,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-woo-album-1.html">
-                        Woo Album #1
-                      </a>
+                      <a href="#">Woo Album #1</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;9.00</span>
@@ -70,10 +65,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-woo-ninja-3.html"
-                        >
+                        <a class="link" href="product-woo-ninja-3.html">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -81,9 +73,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-woo-ninja-3.html">
-                        Woo Logo
-                      </a>
+                      <a href="product-woo-ninja-3.html">Woo Logo</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;15.00</span>
@@ -106,10 +96,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-woo-ninja-3.html"
-                        >
+                        <a class="link" href="product-woo-ninja-3.html">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -117,9 +104,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-woo-ninja-3.html">
-                        Woo Ninja
-                      </a>
+                      <a href="product-woo-ninja-3.html">Woo Ninja</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;15.00</span>
@@ -131,7 +116,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-flying-ninja.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -142,10 +127,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-flying-ninja.html"
-                        >
+                        <a class="link" href="#">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -156,9 +138,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-flying-ninja.html">
-                        Premium Quality
-                      </a>
+                      <a href="#">Premium Quality</a>
                     </h4>
                     <span class="price">
                       <del>
@@ -175,7 +155,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-flying-ninja.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -186,10 +166,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-flying-ninja.html"
-                        >
+                        <a class="link" href="#">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -200,9 +177,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-flying-ninja.html">
-                        Flying Ninja
-                      </a>
+                      <a href="#">Flying Ninja</a>
                     </h4>
                     <span class="price">
                       <del>
@@ -219,7 +194,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-flying-ninja.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -230,10 +205,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-flying-ninja.html"
-                        >
+                        <a class="link" href="#">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -241,9 +213,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-flying-ninja.html">
-                        Ship Your Idea
-                      </a>
+                      <a href="#">Ship Your Idea</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;15.00</span>
@@ -255,7 +225,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-woo-ninja-2.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -266,10 +236,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-woo-ninja-2.html"
-                        >
+                        <a class="link" href="product-woo-ninja-2.html">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -277,9 +244,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-woo-ninja-2.html">
-                        Woo Logo
-                      </a>
+                      <a href="product-woo-ninja-2.html">Woo Logo</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;35.00</span>
@@ -291,7 +256,7 @@ export default class PopularProducts extends Component {
                 <div class="item_wrapper">
                   <div class="image_frame scale-with-grid product-loop-thumb">
                     <div class="image_wrapper">
-                      <a href="product-flying-ninja.html">
+                      <a href="#">
                         <div class="mask" />
                         <img
                           width="300"
@@ -302,10 +267,7 @@ export default class PopularProducts extends Component {
                         />
                       </a>
                       <div class="image_links">
-                        <a
-                          class="link"
-                          href="product-flying-ninja.html"
-                        >
+                        <a class="link" href="#">
                           <i class="icon-link" />
                         </a>
                       </div>
@@ -313,9 +275,7 @@ export default class PopularProducts extends Component {
                   </div>
                   <div class="desc">
                     <h4>
-                      <a href="product-flying-ninja.html">
-                        Ninja Silhouette
-                      </a>
+                      <a href="#">Ninja Silhouette</a>
                     </h4>
                     <span class="price">
                       <span class="amount">&pound;35.00</span>

@@ -164,11 +164,11 @@ router.get("/shopping-cart", function(req, res) {
     return res.render("products/shopping-cart", { products: null });
   }
   var cart = new Cart(req.session.cart);
-  console.log("no mercy",cart.generateArray())
-  res.json({
+  const cartData = {
     products: cart.generateArray(),
     totalPrice: cart.totalPrice
-  });
+  };
+  res.json(cartData);
 });
 
 //COMMETNTS

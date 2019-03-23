@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 
 import { logoutUser } from "../../actions/authActions";
-import { getToatalCartQty } from "../../actions/productActions";
+import { getToatalCartQty } from "../../actions/cartActions";
 
 class Navbar extends Component {
   componentDidMount() {
@@ -217,8 +217,7 @@ class Navbar extends Component {
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getToatalCartQty: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  cart_qty: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   cart: state.cart,

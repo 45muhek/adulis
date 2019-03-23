@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Order = require("../models/order"),
   User = require("../models/users");
+const validateCheckoutInput = require("../validation/checkout");
 
 //@route GET api/order
 //@desc test order route
@@ -34,6 +35,13 @@ router.get("/view", (req, res) => {
 //@desc test order route
 //access public
 router.post("/", (req, res) => {
+  //VALIDATION
+  const { errors, isValid } = validateCheckoutInput(req.body);
+  //CHECK VALIDATION
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  //GET FIELDS
   //INITIALIZING
 
   const orderIssentials = {};
@@ -45,15 +53,23 @@ router.post("/", (req, res) => {
   //SETTING USER TO AN ORDER
   orderIssentials.user = req.user;
 
-  if (req.body.name) orderIssentials.name = req.body.name;
-  if (req.body.deliveryadress)
-    orderIssentials.deliveryadress = req.body.deliveryadress;
+  if (req.body.firstname && req.body.lastname)
+    orderIssentials.name = req.body.firstname + " " + req.body.lastname;
+  if (req.body.companyname) orderIssentials.companyname = req.body.companyname;
+
+  if (req.body.city || req.body.streetname || req.body.housenumber)
+    orderIssentials.city =
+      req.body.city + " " + streetname + " " + " " + housenumber;
+
   if (req.body.phone) orderIssentials.phone = req.body.phone;
   if (req.body.deliverydate)
     orderIssentials.deliverydate = req.body.deliverydate;
 
   if (req.body.transportationtype)
     orderIssentials.transportationtype = req.body.transportationtype;
+  if (req.body.password) orderIssentials.password = req.body.password;
+  if (req.body.paymentmethod)
+    checkoutFields.paymentmethod = req.body.paymentmethod;
 
   //android based transaction
   if (!isAndroid) {

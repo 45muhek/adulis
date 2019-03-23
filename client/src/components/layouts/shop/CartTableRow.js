@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class CartTableRow extends Component {
   render() {
-    const product = this.props.product;
+    const { product } = this.props;
 
     return (
       <tr class="cart_item">
@@ -11,7 +11,7 @@ export default class CartTableRow extends Component {
             <img
               width="200"
               height="200"
-              src="images/poster_2_up-200x200.jpg"
+              src={product.item.image}
               class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"
               alt=""
             />
@@ -23,7 +23,7 @@ export default class CartTableRow extends Component {
         <td class="product-price">
           <span class="woocommerce-Price-amount amount">
             {product.item.price}
-            <span class="woocommerce-Price-currencySymbol"> ETB</span>
+            <span class="woocommerce-Price-currencySymbol"> Birr</span>
           </span>
         </td>
         <td class="product-quantity">

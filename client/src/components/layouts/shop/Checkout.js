@@ -1,7 +1,122 @@
-import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Checkout extends Component {
+import CartTableRow from "./CartTableRow";
+import Spinner from "../../common/Spinner";
+
+import { getCart, getCartTotalPrice } from "../../../actions/cartActions";
+import React, { Component } from "react";
+import CheckoutTableRow from "./CheckoutTableRow";
+import TextFieldGroup from "../../common/TextFieldGroup";
+
+class Checkout extends Component {
+  componentDidMount() {
+    this.props.getCart();
+    this.props.getCartTotalPrice();
+  }
   render() {
+    let orderContent;
+    const { cart, loading } = this.props.cart;
+    const { cart_total_price } = this.props.cart;
+
+    if (cart === null || loading) {
+      orderContent = <Spinner />;
+    } else {
+      orderContent = (
+        <div id="order_review" class="woocommerce-checkout-review-order">
+          <table class="shop_table woocommerce-checkout-review-order-table">
+            <thead>
+              <tr>
+                <th class="product-name">Product</th>
+                <th class="product-total">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                (orderContent = cart.map(product => (
+                  <CheckoutTableRow key={product.item._id} product={product} />
+                )))
+              }
+            </tbody>
+            <tfoot>
+              <tr class="cart-subtotal">
+                <th>Subtotal</th>
+                <td>
+                  <span class="woocommerce-Price-amount amount">
+                    0<span class="woocommerce-Price-currencySymbol"> Birr</span>
+                  </span>
+                </td>
+              </tr>
+              <tr class="cart-subtotal">
+                <th>Transportation</th>
+                <td>
+                  <span class="woocommerce-Price-amount amount">
+                    0<span class="woocommerce-Price-currencySymbol"> Birr</span>
+                  </span>
+                </td>
+              </tr>
+              <tr class="order-total">
+                <th>Total</th>
+                <td>
+                  <strong>
+                    <span class="woocommerce-Price-amount amount">
+                      {cart_total_price}
+                      <span class="woocommerce-Price-currencySymbol">
+                        {" "}
+                        Birr
+                      </span>
+                    </span>
+                  </strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div id="payment" class="woocommerce-checkout-payment">
+            <ul class="wc_payment_methods payment_methods methods">
+              <li class="woocommerce-notice woocommerce-notice--info woocommerce-info">
+                Sorry, it seems that there are no available payment methods for
+                your state. Please contact us if you require assistance or wish
+                to make alternate arrangements.
+              </li>
+            </ul>
+            <div class="form-row place-order">
+              <noscript>
+                Since your browser does not support JavaScript, or it is
+                disabled, please ensure you click the <em>Update Totals</em>{" "}
+                button before placing your order. You may be charged more than
+                the amount stated above if you fail to do so.
+                <br />
+                <input
+                  type="submit"
+                  class="button alt"
+                  name="woocommerce_checkout_update_totals"
+                  value="Update totals"
+                />
+              </noscript>
+              <input
+                type="submit"
+                class="button alt"
+                name="woocommerce_checkout_place_order"
+                id="place_order"
+                value="Place order"
+                data-value="Place order"
+              />
+              <input
+                type="hidden"
+                id="_wpnonce"
+                name="_wpnonce"
+                value="fee460d286"
+              />
+              <input
+                type="hidden"
+                name="_wp_http_referer"
+                value="/be/theme/checkout/"
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <div class="column one column_column">
@@ -48,6 +163,7 @@ export default class Checkout extends Component {
                                       autocomplete="given-name"
                                       autofocus="autofocus"
                                     />
+                                    <TextFieldGroup />
                                   </p>
                                   <p
                                     class="form-row form-row-last validate-required"
@@ -655,300 +771,7 @@ export default class Checkout extends Component {
                             </div>
                           </div>
                           <h3 id="order_review_heading">Your order</h3>
-                          <div
-                            id="order_review"
-                            class="woocommerce-checkout-review-order"
-                          >
-                            <table class="shop_table woocommerce-checkout-review-order-table">
-                              <thead>
-                                <tr>
-                                  <th class="product-name">Product</th>
-                                  <th class="product-total">Total</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Ninja Silhouette&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 9
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      315.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Ship Your Idea&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 8
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      120.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Album #4&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      36.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      140.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      175.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Single #2&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      10.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      72.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 2
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      30.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 3
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      60.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Album #2&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      45.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Single #1&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 3
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      9.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 2
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      30.00
-                                    </span>
-                                  </td>
-                                </tr>
-                              </tbody>
-                              <tfoot>
-                                <tr class="cart-subtotal">
-                                  <th>Subtotal</th>
-                                  <td>
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      1,042.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="order-total">
-                                  <th>Total</th>
-                                  <td>
-                                    <strong>
-                                      <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol">
-                                          &#36;
-                                        </span>
-                                        1,042.00
-                                      </span>
-                                    </strong>
-                                  </td>
-                                </tr>
-                              </tfoot>
-                            </table>
-                            <div
-                              id="payment"
-                              class="woocommerce-checkout-payment"
-                            >
-                              <ul class="wc_payment_methods payment_methods methods">
-                                <li class="woocommerce-notice woocommerce-notice--info woocommerce-info">
-                                  Sorry, it seems that there are no available
-                                  payment methods for your state. Please contact
-                                  us if you require assistance or wish to make
-                                  alternate arrangements.
-                                </li>
-                              </ul>
-                              <div class="form-row place-order">
-                                <noscript>
-                                  Since your browser does not support
-                                  JavaScript, or it is disabled, please ensure
-                                  you click the <em>Update Totals</em> button
-                                  before placing your order. You may be charged
-                                  more than the amount stated above if you fail
-                                  to do so.
-                                  <br />
-                                  <input
-                                    type="submit"
-                                    class="button alt"
-                                    name="woocommerce_checkout_update_totals"
-                                    value="Update totals"
-                                  />
-                                </noscript>
-                                <input
-                                  type="submit"
-                                  class="button alt"
-                                  name="woocommerce_checkout_place_order"
-                                  id="place_order"
-                                  value="Place order"
-                                  data-value="Place order"
-                                />
-                                <input
-                                  type="hidden"
-                                  id="_wpnonce"
-                                  name="_wpnonce"
-                                  value="fee460d286"
-                                />
-                                <input
-                                  type="hidden"
-                                  name="_wp_http_referer"
-                                  value="/be/theme/checkout/"
-                                />
-                              </div>
-                            </div>
-                          </div>
+                          {orderContent}
                         </form>
                       </div>
                     </div>
@@ -967,3 +790,15 @@ export default class Checkout extends Component {
     );
   }
 }
+Checkout.propTypes = {
+  getCart: PropTypes.func.isRequired,
+  getCartTotalPrice: PropTypes.func.isRequired
+};
+const mapStaeToProps = state => ({
+  cart: state.cart,
+  cart_total_price: state.cart_total_price
+});
+export default connect(
+  mapStaeToProps,
+  { getCart, getCartTotalPrice }
+)(Checkout);

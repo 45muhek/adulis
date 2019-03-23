@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addToCart } from "../../../../actions/productActions";
+import { addToCart } from "../../../../actions/cartActions";
 
 class AddToCart extends Component {
   handleClick(id) {

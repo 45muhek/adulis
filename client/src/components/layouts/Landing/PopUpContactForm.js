@@ -6,10 +6,10 @@ export default class PopUpContactForm extends Component {
       <div>
         {/* Popup contact form */}
         <div id="popup_contact">
-          <a class="button button_js" href="#">
-            <i class="icon-mail-line" />
+          <a className="button button_js" href="#">
+            <i className="icon-mail-line" />
           </a>
-          <div class="popup_contact_wrapper">
+          <div className="popup_contact_wrapper">
             <div id="contactWrapper_popup">
               {/* Contact form area */}
               <form id="contactform_popup">
@@ -61,18 +61,13 @@ export default class PopUpContactForm extends Component {
                     />
                   </span>
 
-                  <input
-                    type="button"
-                    value="Send Message"
-                    id="submit_popup"
-                    onClick="return check_values_popup();"
-                  />
+                  <input type="button" value="Send Message" id="submit_popup" />
                 </p>
               </form>
               <div id="confirmation_popup" />
             </div>
 
-            <span class="arrow" />
+            <span className="arrow" />
           </div>
         </div>
       </div>

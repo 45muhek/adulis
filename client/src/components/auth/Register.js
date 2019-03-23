@@ -6,6 +6,7 @@ import classnames from "classnames";
 
 import { registerUser } from "../../actions/authActions";
 import { stat } from "fs";
+import TextFieldGroup from "../common/TextFieldGroup";
 
 class Register extends Component {
   constructor() {
@@ -81,24 +82,14 @@ class Register extends Component {
                           First Name
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="text"
-                          /* prettier-ignore */
-
-                          className={classnames("form_input_full", {
-                            invalid: errors.firstname
-                          })}
-                          name="firstname"
-                          value={this.state.firstname}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.firstname && (
-                        <label generated="true" className="error-label">
-                          {errors.firstname}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="text"
+                        name="firstname"
+                        id="firstname"
+                        value={this.state.firstname}
+                        onChange={this.onChange}
+                        error={errors.firstname}
+                      />
 
                       <span>
                         {" "}
@@ -106,24 +97,14 @@ class Register extends Component {
                           Last name
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="text"
-                          /* prettier-ignore */
-
-                          className={classnames("form_input_full", {
-                            invalid: errors.lastname
-                          })}
-                          name="lastname"
-                          value={this.state.lastname}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.lastname && (
-                        <label generated="true" className="error-label">
-                          {errors.lastname}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="text"
+                        name="lastname"
+                        id="lastname"
+                        value={this.state.lastname}
+                        onChange={this.onChange}
+                        error={errors.lastname}
+                      />
 
                       <span>
                         {" "}
@@ -131,59 +112,28 @@ class Register extends Component {
                           Email
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="email"
-                          /* prettier-ignore */
-
-                          className={classnames("form_input_full", {
-                            invalid: errors.email
-                          })}
-                          name="email"
-                          value={this.state.email}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.email && (
-                        <label
-                          for="contactname"
-                          generated="true"
-                          className="error-label"
-                        >
-                          {errors.email}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        error={errors.email}
+                      />
 
                       <span>
                         <label className="form_lable" for="password">
                           Password
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="password"
-                          /* prettier-ignore */
-
-                          className={classnames("form_input_full", {
-                            invalid: errors.password
-                          })}
-                          name="password"
-                          id="password"
-                          aria-required="true"
-                          aria-invalid="false"
-                          value={this.state.password}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.password && (
-                        <label
-                          for="contactname"
-                          generated="true"
-                          className="error-label"
-                        >
-                          {errors.password}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        error={errors.password}
+                      />
 
                       <span>
                         {" "}
@@ -191,31 +141,14 @@ class Register extends Component {
                           Confirm Password
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="password"
-                          /* prettier-ignore */
-
-                          className={classnames("form_input_full", {
-                            'invalid': errors.password2
-                          })}
-                          name="password2"
-                          id="password2"
-                          aria-required="true"
-                          aria-invalid="false"
-                          value={this.state.password2}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.password2 && (
-                        <label
-                          for="contactname"
-                          generated="true"
-                          className="error-label"
-                        >
-                          {errors.password2}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="password"
+                        name="password2"
+                        id="password2"
+                        value={this.state.password2}
+                        onChange={this.onChange}
+                        error={errors.password2}
+                      />
 
                       <span>
                         <input
