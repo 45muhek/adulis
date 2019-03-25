@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 
 import { loginUser } from "../../actions/authActions";
+import TextFieldGroup from "../common/TextFieldGroup";
 
 class Login extends Component {
   constructor() {
@@ -76,50 +77,31 @@ class Login extends Component {
                           Email
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="email"
-                          /* prettier-ignore */
 
-                          className={classnames("form_input_full", {
-                          'invalid': errors.email
-                        })}
-                          name="email"
-                          id="email"
-                          value={this.state.email}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.email && (
-                        <label generated="true" className="error-label">
-                          {errors.email}
-                        </label>
-                      )}
+                      <TextFieldGroup
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        error={errors.email}
+                      />
+
                       <span>
                         {" "}
                         <label class="form_lable" for="password">
                           Password
                         </label>
                       </span>
-                      <span>
-                        <input
-                          type="password"
-                          /* prettier-ignore */
+                      <TextFieldGroup
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        error={errors.password}
+                      />
 
-                          className={classnames("form_input_full", {
-                            'invalid': errors.password
-                          })}
-                          name="password"
-                          id="password"
-                          value={this.state.password}
-                          onChange={this.onChange}
-                        />
-                      </span>
-                      {errors.password && (
-                        <label generated="true" className="error-label">
-                          {errors.password}
-                        </label>
-                      )}
                       <span>
                         <input
                           type="submit"

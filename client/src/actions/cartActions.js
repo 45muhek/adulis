@@ -1,53 +1,20 @@
 import axios from "axios";
+import {
+  GET_CART_QTY,
+  GET_CART,
+  PRODUCT_LOADING,
+  GET_ERRORS,
+  GET_CART_TOTAL_PRICE
+} from "./Types";
 
-import { GET_PRODUCTS, GET_PRODUCT, PRODUCT_LOADING } from "./Types";
-
-//GET ALL PRODUCTS
-export const getAllProducts = () => dispatch => {
-  dispatch(setProductLoading());
-  axios
-    .get("/products")
-    .then(res =>
-      dispatch({
-        type: GET_PRODUCTS,
-        payload: res.data.allProducts
-      })
-    )
-    .catch(
-      dispatch({
-        type: GET_PRODUCTS,
-        payload: {}
-      })
-    );
-};
-
-//PRODUCT LOADING
+//CART LOADING
 export const setProductLoading = () => {
   return {
     type: PRODUCT_LOADING
   };
 };
 
-//GET SINGLE PRODUCT BY ID
-export const getProductById = id => dispatch => {
-  dispatch(setProductLoading());
-  axios
-    .get(`/product/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_PRODUCT,
-        payload: res.data.product
-      })
-    )
-    .catch(
-      dispatch({
-        type: GET_PRODUCT,
-        payload: {}
-      })
-    );
-};
-<<<<<<< HEAD
-
+//GET CART QUANTITY
 export const getToatalCartQty = () => dispatch => {
   dispatch(setProductLoading());
   axios
@@ -65,6 +32,7 @@ export const getToatalCartQty = () => dispatch => {
       })
     );
 };
+//ADD A PRODUCT TO CRT
 export const addToCart = (id, history) => dispatch => {
   dispatch(setProductLoading());
   axios
@@ -77,7 +45,7 @@ export const addToCart = (id, history) => dispatch => {
       })
     );
 };
-
+//VIEW THE CART
 export const getCart = () => dispatch => {
   dispatch(setProductLoading());
 
@@ -96,9 +64,21 @@ export const getCart = () => dispatch => {
       })
     );
 };
-
+//GET THE TOTAL PRICE OF ITEMS IN THE CART
 export const getCartTotalPrice = () => dispatch => {
   dispatch(setProductLoading());
+  axios
+    .get("/shopping-cart")
+    .then(res =>
+      dispatch({
+        type: GET_CART_TOTAL_PRICE,
+        payload: res.data.totalPrice
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
-=======
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485

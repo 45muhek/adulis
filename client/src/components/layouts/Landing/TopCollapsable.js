@@ -73,8 +73,9 @@ class TopCollapsable extends Component {
                   <div className="textwidget">
                     <p>
                       <span className="big">
-                        <i class="icon-location-line" />
-                        We deliver <span class="themecolor">1 million </span>
+                        <i className="icon-location-line" />
+                        We deliver{" "}
+                        <span className="themecolor">1 million </span>
                         products to
                       </span>
                     </p>
@@ -99,27 +100,27 @@ class TopCollapsable extends Component {
               </div>
               <div className="one-fourth column">
                 {/* Text Area */}
-                <aside id="text-11" class="widget widget_text">
-                  <div class="textwidget">
-                    <h5 class="flv_margin_b_5">
-                      <i class="icon-mail-line" /> Our address:
+                <aside id="text-11" className="widget widget_text">
+                  <div className="textwidget">
+                    <h5 className="flv_margin_b_5">
+                      <i className="icon-mail-line" /> Our address:
                     </h5>
-                    <p class="flv_margin_l_26">
+                    <p className="flv_margin_l_26">
                       <strong>Adulis HQ</strong>
                       <br />
                       Building floor, Bole Roads,
                       <br /> Addis Adbeba, Ethiopia
                     </p>
-                    <h5 class="flv_margin_b_5">
-                      <i class="icon-comment-line" /> Have any questions?
+                    <h5 className="flv_margin_b_5">
+                      <i className="icon-comment-line" /> Have any questions?
                     </h5>
-                    <p class="flv_margin_l_26">
+                    <p className="flv_margin_l_26">
                       <a href="mailto:noreply@Adu.com">ask@Adulis.com</a>
                     </p>
-                    <h5 class="flv_margin_b_5">
-                      <i class="icon-phone " /> Call us:
+                    <h5 className="flv_margin_b_5">
+                      <i className="icon-phone " /> Call us:
                     </h5>
-                    <p class="flv_margin_l_26">
+                    <p className="flv_margin_l_26">
                       <a href="tel:+251932441545">+251 932 441 545</a>
                     </p>
                   </div>
@@ -128,8 +129,8 @@ class TopCollapsable extends Component {
               <div className="one-fourth column">
                 {/* Text Area */}
 
-                <aside id="text-12" class="widget widget_text">
-                  <div class="textwidget">
+                <aside id="text-12" className="widget widget_text">
+                  <div className="textwidget">
                     <img
                       src="images/logo_header_dark.png"
                       height={"40"}
@@ -155,7 +156,7 @@ class TopCollapsable extends Component {
                     <p>
                       Special mobile app features includes:
                       <span
-                        class="tooltip"
+                        className="tooltip"
                         data-tooltip="You can pay via ussd based mobile banking"
                       >
                         {" "}

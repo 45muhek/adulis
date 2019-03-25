@@ -140,7 +140,7 @@ router.get("/add-to-cart/:id", function(req, res) {
   });
 });
 //@route GET api/shopping-cart
-//@desc view cart
+//@desc view cart quantity
 //access public
 router.get("/cart-total-qty", (req, res) => {
   if (!req.session.cart) res.json("0");
@@ -161,14 +161,14 @@ router.get("/cart-total-qty", (req, res) => {
 //access public
 router.get("/shopping-cart", function(req, res) {
   if (!req.session.cart) {
-    return res.render("products/shopping-cart", { products: null });
+    res.status(400).json("empty cart");
   }
   var cart = new Cart(req.session.cart);
-  console.log("no mercy", cart.generateArray());
-  res.json({
+  const cartData = {
     products: cart.generateArray(),
     totalPrice: cart.totalPrice
-  });
+  };
+  res.json(cartData);
 });
 
 //COMMETNTS

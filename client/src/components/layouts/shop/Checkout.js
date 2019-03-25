@@ -1,7 +1,144 @@
-import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Checkout extends Component {
+import CartTableRow from "./CartTableRow";
+import Spinner from "../../common/Spinner";
+
+import { getCart, getCartTotalPrice } from "../../../actions/cartActions";
+import React, { Component } from "react";
+import CheckoutTableRow from "./CheckoutTableRow";
+import TextFieldGroup from "../../common/TextFieldGroup";
+import { placeOrder } from "../../../actions/orderAction";
+import SelectListGroup from "../../common/SelectListGroup";
+
+class Checkout extends Component {
+  constructor() {
+    super();
+    this.state = {
+      firstname: "",
+      lastname: "",
+      companyname: "",
+      streetname: "",
+      housenumber: "",
+      city: "",
+      phone: "",
+      email: "",
+      deliverydate: "",
+      transportationtype: "",
+      transactionmethod: "",
+      deliverydate: "",
+      note: "",
+      transactionmethod: "",
+      errors: {}
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+  componentDidMount() {
+    this.props.getCart();
+    this.props.getCartTotalPrice();
+  }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  onSubmit(e) {
+    e.preventDefault();
+
+    const newOrder = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      companyname: this.state.companyname,
+      streetname: this.state.streetname,
+      housenumber: this.state.housenumber,
+      city: this.state.city,
+      phone: this.state.phone,
+      email: this.state.email,
+      deliverydate: this.state.deliverydate,
+      transportationtype: this.state.transportationtype,
+      transactionmethod: this.state.transactionmethod,
+      deliverydate: this.state.deliverydate,
+      paymentm: this.state.paymentm,
+      note: this.state.note
+    };
+    this.props.placeOrder(newOrder, this.props.history);
+  }
   render() {
+    //PAYMENT OPTIONS
+    const options = [
+      {
+        label: "Select payment method",
+        value: ""
+      },
+      { label: "Cash on delivery", value: "cash on delivery" }
+    ];
+    //ASSIGNING ERRORS
+    const { errors } = this.state;
+
+    let orderContent;
+    const { cart, loading } = this.props.cart;
+    const { cart_total_price } = this.props.cart;
+
+    if (cart === null || loading) {
+      orderContent = <Spinner />;
+    } else {
+      orderContent = (
+        <div id="order_review" class="woocommerce-checkout-review-order">
+          <table class="shop_table woocommerce-checkout-review-order-table">
+            <thead>
+              <tr>
+                <th class="product-name">Product</th>
+                <th class="product-total">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                (orderContent = cart.map(product => (
+                  <CheckoutTableRow key={product.item._id} product={product} />
+                )))
+              }
+            </tbody>
+            <tfoot>
+              <tr class="cart-subtotal">
+                <th>Subtotal</th>
+                <td>
+                  <span class="woocommerce-Price-amount amount">
+                    0<span class="woocommerce-Price-currencySymbol"> Birr</span>
+                  </span>
+                </td>
+              </tr>
+              <tr class="cart-subtotal">
+                <th>Transportation</th>
+                <td>
+                  <span class="woocommerce-Price-amount amount">
+                    0<span class="woocommerce-Price-currencySymbol"> Birr</span>
+                  </span>
+                </td>
+              </tr>
+              <tr class="order-total">
+                <th>Total</th>
+                <td>
+                  <strong>
+                    <span class="woocommerce-Price-amount amount">
+                      {cart_total_price}
+                      <span class="woocommerce-Price-currencySymbol">
+                        {" "}
+                        Birr
+                      </span>
+                    </span>
+                  </strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      );
+    }
     return (
       <div>
         <div class="column one column_column">
@@ -19,7 +156,7 @@ export default class Checkout extends Component {
                           name="checkout"
                           method="post"
                           class="checkout woocommerce-checkout"
-                          action="#"
+                          onSubmit={this.onSubmit}
                           enctype="multipart/form-data"
                         >
                           <div class="col2-set" id="customer_details">
@@ -29,7 +166,7 @@ export default class Checkout extends Component {
                                 <div class="woocommerce-billing-fields__field-wrapper">
                                   <p
                                     class="form-row form-row-first validate-required"
-                                    id="billing_first_name_field"
+                                    id="firstname"
                                     data-priority="10"
                                   >
                                     <label for="billing_first_name" class="">
@@ -38,13 +175,15 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_first_name"
-                                      id="billing_first_name"
-                                      placeholder=""
-                                      value=""
+                                      name="firstname"
+                                      id="firstname"
+                                      value={this.state.firstname}
+                                      onChange={this.onChange}
+                                      error={errors.firstname}
                                       autocomplete="given-name"
                                       autofocus="autofocus"
                                     />
@@ -60,13 +199,15 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_last_name"
-                                      id="billing_last_name"
-                                      placeholder=""
-                                      value=""
+                                      name="lastname"
+                                      id="lastname"
+                                      value={this.state.lastname}
+                                      onChange={this.onChange}
+                                      error={errors.lastname}
                                       autocomplete="family-name"
                                     />
                                   </p>
@@ -78,13 +219,15 @@ export default class Checkout extends Component {
                                     <label for="billing_company" class="">
                                       Company name
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_company"
-                                      id="billing_company"
-                                      placeholder=""
-                                      value=""
+                                      name="companyname"
+                                      id="companyname"
+                                      value={this.state.companyname}
+                                      onChange={this.onChange}
+                                      error={errors.companyname}
                                       autocomplete="organization"
                                     />
                                   </p>
@@ -205,7 +348,9 @@ export default class Checkout extends Component {
                                       </option>
                                       <option value="ER">Eritrea</option>
                                       <option value="EE">Estonia</option>
-                                      <option value="ET">Ethiopia</option>
+                                      <option value="ET" selected="selected">
+                                        Ethiopia
+                                      </option>
                                       <option value="FK">
                                         Falkland Islands
                                       </option>
@@ -332,9 +477,7 @@ export default class Checkout extends Component {
                                       <option value="PR">Puerto Rico</option>
                                       <option value="QA">Qatar</option>
                                       <option value="RE">Reunion</option>
-                                      <option value="RO" selected="selected">
-                                        Romania
-                                      </option>
+                                      <option value="RO">Romania</option>
                                       <option value="RU">Russia</option>
                                       <option value="RW">Rwanda</option>
                                       <option value="ST">
@@ -461,13 +604,16 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_address_1"
-                                      id="billing_address_1"
+                                      name="streetname"
+                                      id="streetname"
                                       placeholder="Street address"
-                                      value=""
+                                      value={this.state.streetname}
+                                      onChange={this.onChange}
+                                      error={errors.streetname}
                                       autocomplete="address-line1"
                                     />
                                   </p>
@@ -476,13 +622,15 @@ export default class Checkout extends Component {
                                     id="billing_address_2_field"
                                     data-priority="60"
                                   >
-                                    <input
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_address_2"
-                                      id="billing_address_2"
+                                      name="housenumber"
+                                      id="housenumber"
                                       placeholder="Apartment, suite, unit etc. (optional)"
-                                      value=""
+                                      value={this.state.housenumber}
+                                      onChange={this.onChange}
+                                      error={errors.housenumber}
                                       autocomplete="address-line2"
                                     />
                                   </p>
@@ -497,35 +645,42 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="text"
                                       class="input-text "
-                                      name="billing_city"
-                                      id="billing_city"
-                                      placeholder=""
-                                      value=""
+                                      name="city"
+                                      id="city"
+                                      value={this.state.city}
+                                      onChange={this.onChange}
+                                      error={errors.city}
                                       autocomplete="address-level2"
                                     />
                                   </p>
                                   <p
-                                    class="form-row form-row-wide address-field validate-state"
-                                    id="billing_state_field"
-                                    data-priority="80"
+                                    class="form-row form-row-wide address-field validate-required"
+                                    id="billing_city_field"
+                                    data-priority="70"
                                   >
-                                    <label for="billing_state" class="">
-                                      State / County
+                                    <label for="billing_city" class="">
+                                      Delivery date{" "}
+                                      <abbr class="required" title="required">
+                                        *
+                                      </abbr>
                                     </label>
-                                    <input
-                                      type="text"
+
+                                    <TextFieldGroup
+                                      type="date"
                                       class="input-text "
-                                      value=""
-                                      placeholder=""
-                                      name="billing_state"
-                                      id="billing_state"
-                                      autocomplete="address-level1"
+                                      name="deliverydate"
+                                      id="deliverydate"
+                                      value={this.state.deliverydate}
+                                      onChange={this.onChange}
+                                      error={errors.deliverydate}
                                     />
                                   </p>
-                                  <p
+
+                                  {/*         <p
                                     class="form-row form-row-wide address-field validate-required validate-postcode"
                                     id="billing_postcode_field"
                                     data-priority="90"
@@ -545,7 +700,7 @@ export default class Checkout extends Component {
                                       value=""
                                       autocomplete="postal-code"
                                     />
-                                  </p>
+                                  </p> */}
                                   <p
                                     class="form-row form-row-first validate-required validate-phone"
                                     id="billing_phone_field"
@@ -557,13 +712,15 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="tel"
                                       class="input-text "
-                                      name="billing_phone"
-                                      id="billing_phone"
-                                      placeholder=""
-                                      value=""
+                                      name="phone"
+                                      id="phone"
+                                      value={this.state.phone}
+                                      onChange={this.onChange}
+                                      error={errors.phone}
                                       autocomplete="tel"
                                     />
                                   </p>
@@ -578,53 +735,17 @@ export default class Checkout extends Component {
                                         *
                                       </abbr>
                                     </label>
-                                    <input
+
+                                    <TextFieldGroup
                                       type="email"
-                                      class="input-text "
-                                      name="billing_email"
-                                      id="billing_email"
-                                      placeholder=""
-                                      value=""
+                                      name="email"
+                                      id="email"
+                                      value={this.state.email}
+                                      onChange={this.onChange}
+                                      error={errors.email}
                                       autocomplete="email username"
                                     />
                                   </p>
-                                </div>
-                              </div>
-                              <div class="woocommerce-account-fields">
-                                <p class="form-row form-row-wide create-account">
-                                  <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-                                    <input
-                                      class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox"
-                                      id="createaccount"
-                                      type="checkbox"
-                                      name="createaccount"
-                                      value="1"
-                                    />
-                                    <span>Create an account?</span>{" "}
-                                  </label>
-                                </p>
-                                <div class="create-account">
-                                  <p
-                                    class="form-row validate-required"
-                                    id="account_password_field"
-                                    data-priority=""
-                                  >
-                                    <label for="account_password" class="">
-                                      Account password{" "}
-                                      <abbr class="required" title="required">
-                                        *
-                                      </abbr>
-                                    </label>
-                                    <input
-                                      type="password"
-                                      class="input-text "
-                                      name="account_password"
-                                      id="account_password"
-                                      placeholder="Password"
-                                      value=""
-                                    />
-                                  </p>
-                                  <div class="clear" />
                                 </div>
                               </div>
                             </div>
@@ -642,9 +763,11 @@ export default class Checkout extends Component {
                                       Order notes
                                     </label>
                                     <textarea
-                                      name="order_comments"
+                                      name="note"
                                       class="input-text "
-                                      id="order_comments"
+                                      id="note"
+                                      value={this.state.note}
+                                      onChange={this.onChange}
                                       placeholder="Notes about your order, e.g. special notes for delivery."
                                       rows="2"
                                       cols="5"
@@ -655,298 +778,32 @@ export default class Checkout extends Component {
                             </div>
                           </div>
                           <h3 id="order_review_heading">Your order</h3>
+                          {orderContent}
                           <div
-                            id="order_review"
-                            class="woocommerce-checkout-review-order"
+                            id="payment"
+                            class="woocommerce-checkout-payment"
                           >
-                            <table class="shop_table woocommerce-checkout-review-order-table">
-                              <thead>
-                                <tr>
-                                  <th class="product-name">Product</th>
-                                  <th class="product-total">Total</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Ninja Silhouette&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 9
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      315.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Ship Your Idea&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 8
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      120.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Album #4&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      36.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      140.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      175.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Single #2&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      10.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 4
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      72.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 2
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      30.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Ninja&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 3
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      60.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Album #2&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 5
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      45.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Single #1&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 3
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      9.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="cart_item">
-                                  <td class="product-name">
-                                    {" "}
-                                    Woo Logo&nbsp;{" "}
-                                    <strong class="product-quantity">
-                                      &times; 2
-                                    </strong>
-                                  </td>
-                                  <td class="product-total">
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      30.00
-                                    </span>
-                                  </td>
-                                </tr>
-                              </tbody>
-                              <tfoot>
-                                <tr class="cart-subtotal">
-                                  <th>Subtotal</th>
-                                  <td>
-                                    <span class="woocommerce-Price-amount amount">
-                                      <span class="woocommerce-Price-currencySymbol">
-                                        &#36;
-                                      </span>
-                                      1,042.00
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr class="order-total">
-                                  <th>Total</th>
-                                  <td>
-                                    <strong>
-                                      <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol">
-                                          &#36;
-                                        </span>
-                                        1,042.00
-                                      </span>
-                                    </strong>
-                                  </td>
-                                </tr>
-                              </tfoot>
-                            </table>
-                            <div
-                              id="payment"
-                              class="woocommerce-checkout-payment"
-                            >
-                              <ul class="wc_payment_methods payment_methods methods">
-                                <li class="woocommerce-notice woocommerce-notice--info woocommerce-info">
-                                  Sorry, it seems that there are no available
-                                  payment methods for your state. Please contact
-                                  us if you require assistance or wish to make
-                                  alternate arrangements.
-                                </li>
-                              </ul>
-                              <div class="form-row place-order">
-                                <noscript>
-                                  Since your browser does not support
-                                  JavaScript, or it is disabled, please ensure
-                                  you click the <em>Update Totals</em> button
-                                  before placing your order. You may be charged
-                                  more than the amount stated above if you fail
-                                  to do so.
-                                  <br />
-                                  <input
-                                    type="submit"
-                                    class="button alt"
-                                    name="woocommerce_checkout_update_totals"
-                                    value="Update totals"
-                                  />
-                                </noscript>
-                                <input
-                                  type="submit"
-                                  class="button alt"
-                                  name="woocommerce_checkout_place_order"
-                                  id="place_order"
-                                  value="Place order"
-                                  data-value="Place order"
+                            <ul class="wc_payment_methods payment_methods methods">
+                              <li class="woocommerce-notice woocommerce-notice--info woocommerce-info">
+                                <SelectListGroup
+                                  name="transactionmethod"
+                                  id="transactionmethod"
+                                  value={this.state.transactionmethod}
+                                  onChange={this.onChange}
+                                  options={options}
+                                  error={errors.transactionmethod}
                                 />
-                                <input
-                                  type="hidden"
-                                  id="_wpnonce"
-                                  name="_wpnonce"
-                                  value="fee460d286"
-                                />
-                                <input
-                                  type="hidden"
-                                  name="_wp_http_referer"
-                                  value="/be/theme/checkout/"
-                                />
-                              </div>
+                              </li>
+                            </ul>
+
+                            <div class="form-row place-order">
+                              <input
+                                type="submit"
+                                name="woocommerce_checkout_place_order"
+                                id="place_order"
+                                value="Place order"
+                                data-value="Place order"
+                              />
                             </div>
                           </div>
                         </form>
@@ -967,3 +824,19 @@ export default class Checkout extends Component {
     );
   }
 }
+
+Checkout.propTypes = {
+  getCart: PropTypes.func.isRequired,
+  placeOrder: PropTypes.func.isRequired,
+  getCartTotalPrice: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStaeToProps = state => ({
+  cart: state.cart,
+  cart_total_price: state.cart_total_price,
+  errors: state.errors
+});
+export default connect(
+  mapStaeToProps,
+  { getCart, getCartTotalPrice, placeOrder }
+)(Checkout);

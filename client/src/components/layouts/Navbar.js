@@ -5,9 +5,10 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 import { logoutUser } from "../../actions/authActions";
-import { getToatalCartQty } from "../../actions/productActions";
+import { getToatalCartQty } from "../../actions/cartActions";
 
 class Navbar extends Component {
   componentDidMount() {
@@ -37,44 +38,52 @@ class Navbar extends Component {
     const guestLinks = (
       <ul id="menu-secondary-menu" className="secondary-menu">
         <li className="menu-item-1568">
-          <a href="#">Login</a>
+          <Link to="/login">Login</Link>
         </li>
         <li className="menu-item-1573">
-          <a href="contact.html">Sign Up</a>
-        </li>
-        <li className="menu-item-1574">
-          <a href="shop.html">Get The App!</a>
+          <Link to="/register">Sign Up</Link>
         </li>
       </ul>
     );
 
     const authLinks = (
-      <ul id="menu-secondary-menu" className="secondary-menu">
+      <ul id="menu-secondary-menu " className="secondary-menu">
+        <li className="menu">
+          <Link to="#">
+            <i style={{ fontSize: 128 + "%" }} className="icon-bell" />{" "}
+          </Link>
+        </li>
         <li className="menu-item-1573">
           <a href="#" onClick={this.onLogoutClick.bind(this)}>
             Logout
           </a>
         </li>
-        <li className="menu-item-1574">
-          <a href="shop.html">Get The App!</a>
+
+        <li className="menu-item-1574 submenu ">
+          <Link to="/profile">
+            {" "}
+            <i
+              style={{
+                padding: "2px"
+              }}
+              className="icon-user"
+            />{" "}
+            {user.firstname} <i className="icon-down-open-mini" />
+          </Link>
+          <ul className="sub-menu" />
         </li>
       </ul>
     );
 
     const profileLink = (
-      <div className="wpml-languages enabled">
-        <a className="active">
-          <img
-            src="css/images/user_3.png"
-            alt={user.firstname}
-            style={{ width: "25px", marginRight: "5x" }}
-            title="set your profile picture to get a higher varification rate"
-          />
-          <span style={{ textAlign: "center", marginRight: "5" + "px" }}>
-            {user.firstname}
-          </span>
-        </a>
-      </div>
+      <Link
+        className="menu-item-1573"
+        style={{ fontSize: "15" + "px", textDecoration: "none", outline: 0 }}
+        id="header_cart"
+        to="#"
+      >
+        My orders
+      </Link>
     );
     return (
       <div>
@@ -91,9 +100,9 @@ class Navbar extends Component {
                       {/* Logo */}
                       <div className="logo" id="logo">
                         <div className="column one-forth column_column">
-                          <a
+                          <Link
                             style={{ float: "left" }}
-                            href="index.html"
+                            to="/"
                             title="BeTheme - Best Html Theme Ever"
                           >
                             <img
@@ -101,7 +110,7 @@ class Navbar extends Component {
                               src="images/logo1.png"
                               alt="BeTheme - Best Html Theme Ever"
                             />
-                          </a>
+                          </Link>
                         </div>
                         <div className="column one-second column_column">
                           <div className="clearfix">
@@ -110,16 +119,16 @@ class Navbar extends Component {
                               style={searchStyle}
                               placeholder="search"
                             />
-                            <a
+                            <Link
                               className="button button_left button_theme button_js "
                               style={searchBtnStyle}
-                              href="#"
+                              to="/search"
                               target="_blank"
                             >
                               <span className="button_icon">
                                 <i className="icon-search" />
                               </span>
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -129,52 +138,46 @@ class Navbar extends Component {
                       <nav id="menu">
                         <ul id="menu-main-menu" className="menu">
                           <li>
-                            <a
-                              href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
-                              target="_blank"
-                            >
+                            <Link to="#" target="_blank">
                               <span>Departments</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
-                              href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
-                              target="_blank"
-                            >
+                            <Link to="/departments" target="_blank">
                               <span>Featured</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="features-color-skins.html">
+                            <Link to="/discount">
                               <span>Discount Window</span>
-                            </a>
+                            </Link>
                           </li>
                           <li className="menu-item">
-                            <a href="home-modern-header.html">
+                            <Link to="sell">
                               <span>Sell</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="typography.html">
+                            <Link to="/services">
                               <span>Our services</span>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="about.html">
+                            <Link to="/about-us">
                               <span>About Us</span>
-                            </a>
+                            </Link>
                           </li>
 
                           <li>
-                            <a href="blog-sidebar-classNameic.html">
+                            <Link to="faq">
                               <span>FAQ</span>
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </nav>
-                      <a className="responsive-menu-toggle" href="#">
+                      <Link className="responsive-menu-toggle" to="#">
                         <i className="icon-menu" />
-                      </a>
+                      </Link>
                     </div>
                     {/* Secondary menu area - only for certain pages */}
                     <div className="secondary_menu_wrapper">
@@ -187,22 +190,21 @@ class Navbar extends Component {
                     </div>
                     {/* Banner area - only for certain pages */}
                     <div className="banner_wrapper">
-                      <a href="#" target="_blank">
+                      <Link to="#" target="_blank">
                         <img src="images/468x60.gif" alt="" />
-                      </a>
+                      </Link>
                     </div>
                     {/* Header Searchform area */}
                   </div>
                   <div className="top_bar_right">
                     <div className="top_bar_right_wrapper">
                       {/* Shopping cart icon */}
-                      <div className="wpml-languages enabled">
-                        {isAuthenticated ? profileLink : ""}
-                      </div>
-                      <a id="header_cart" href="#">
+                      <div className="wpml-languages enabled" />
+                      {isAuthenticated ? profileLink : ""}
+                      <Link id="header_cart" to="#">
                         <i className="icon-basket" />
                         <span>{cart_qty}</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -217,8 +219,7 @@ class Navbar extends Component {
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getToatalCartQty: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  cart_qty: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   cart: state.cart,

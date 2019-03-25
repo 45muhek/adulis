@@ -1,7 +1,9 @@
 var express = require("express");
+var passport = require("passport");
 var router = express.Router();
 var Order = require("../models/order"),
   User = require("../models/users");
+const validateCheckoutInput = require("../validation/checkout");
 
 //@route GET api/order
 //@desc test order route
@@ -17,7 +19,7 @@ router.get("/", (req, res) => {
 //@route GET api/order/view
 //@desc view customers own order
 //access private(customer)
-router.get("/view", (req, res) => {
+router.get("/view", passport.authenticate("jwt"), (req, res) => {
   Order.find({ user: req.user }, (err, orders) => {
     if (err) console.log(err);
     else {
@@ -26,14 +28,21 @@ router.get("/view", (req, res) => {
         cart = new Cart(order.cart);
         order.items = cart.generateArray();
       });
-      res.render("products/order", { orders: orders });
+      res.json(orders);
     }
   });
 });
 //@route GET api/order
 //@desc test order route
 //access public
-router.post("/", (req, res) => {
+router.post("/", passport.authenticate("jwt"), (req, res) => {
+  //VALIDATION
+  const { errors, isValid } = validateCheckoutInput(req.body);
+  //CHECK VALIDATION
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  //GET FIELDS
   //INITIALIZING
 
   const orderIssentials = {};
@@ -45,15 +54,25 @@ router.post("/", (req, res) => {
   //SETTING USER TO AN ORDER
   orderIssentials.user = req.user;
 
-  if (req.body.name) orderIssentials.name = req.body.name;
-  if (req.body.deliveryadress)
-    orderIssentials.deliveryadress = req.body.deliveryadress;
+  if (req.body.firstname && req.body.lastname)
+    orderIssentials.name = req.body.firstname + " " + req.body.lastname;
+  if (req.body.companyname) orderIssentials.companyname = req.body.companyname;
+
+  if (req.body.city || req.body.streetname || req.body.housenumber)
+    orderIssentials.deliveryadress =
+      req.body.city + ", " + req.body.streetname + ", " + req.body.housenumber;
+
   if (req.body.phone) orderIssentials.phone = req.body.phone;
+  if (req.body.email) orderIssentials.email = req.body.email;
   if (req.body.deliverydate)
     orderIssentials.deliverydate = req.body.deliverydate;
 
   if (req.body.transportationtype)
     orderIssentials.transportationtype = req.body.transportationtype;
+  if (req.body.password) orderIssentials.password = req.body.password;
+  if (req.body.paymentmethod)
+    orderIssentials.paymentmethod = req.body.paymentmethod;
+  if (req.body.note) orderIssentials.note = req.body.note;
 
   //android based transaction
   if (!isAndroid) {
@@ -71,7 +90,7 @@ router.post("/", (req, res) => {
       console.log(err);
     } else {
       req.session.cart = null;
-      res.redirect("/productcatalogue");
+      res.json(orders);
     }
   });
 });
@@ -86,7 +105,7 @@ router.post("/:id", (req, res) => {
     }) */
 });
 //@route GET api/order/all
-//@desc oview all order requests
+//@desc view all order requests
 //access private(pm)
 router.get("/all", (req, res) => {
   Order.find({}, function(err, orders) {
@@ -115,7 +134,7 @@ router.get("/set_transporter", (req, res) => {
   });
 });
 //@route GET api/order
-//@desc test order route
+//@desc view the person that made an order
 //access public
 router.get("/user/:id", (req, res) => {
   User.findById(req.params.id, (err, user) => {

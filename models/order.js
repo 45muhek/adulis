@@ -11,9 +11,15 @@ var ordercSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  companyname: {
+    type: String
+  },
   phone: {
     type: String,
     required: true
+  },
+  email: {
+    type: String
   },
   transportationtype: {
     type: String
@@ -26,9 +32,15 @@ var ordercSchema = new mongoose.Schema({
   },
   deliverydate: {
     type: Date,
+    required: true
+  },
+  ordereddate: {
+    type: Date,
     default: Date.now
   },
-
+  note: {
+    type: String
+  },
   //PAYMENT
   transaction: {
     from: {
