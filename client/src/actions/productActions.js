@@ -56,6 +56,7 @@ export const getProductById = id => dispatch => {
 };
 
 export const getToatalCartQty = () => dispatch => {
+  dispatch(setProductLoading());
   axios
     .get("/cart-total-qty")
     .then(res =>

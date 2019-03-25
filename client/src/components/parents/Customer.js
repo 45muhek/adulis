@@ -14,6 +14,7 @@ import ShopMain from "../layouts/shop/product/ShopMain";
 import Cart from "../layouts/shop/Cart";
 import Checkout from "../layouts/shop/Checkout";
 import SingleProduct from "../layouts/shop/product/SingleProduct";
+import FAQ from "../layouts/statics/FAQ";
 
 /* import "../../css/global.css";
 import "../../css/structure.css";
@@ -36,7 +37,8 @@ export class Customer extends Component {
           <Route exact path="/shop" component={ShopMain} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/product/:id" component={SingleProduct} />
+          <Route exact path="/single-product" component={SingleProduct} />
+          <Route exact path="/faq" component={FAQ} />
           <Footer />
           <PopUpContactForm />
         </div>

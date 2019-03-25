@@ -164,7 +164,7 @@ router.get("/shopping-cart", function(req, res) {
     return res.render("products/shopping-cart", { products: null });
   }
   var cart = new Cart(req.session.cart);
-  console.log("no mercy",cart.generateArray())
+  console.log("no mercy", cart.generateArray());
   res.json({
     products: cart.generateArray(),
     totalPrice: cart.totalPrice
