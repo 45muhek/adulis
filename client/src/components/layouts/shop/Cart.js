@@ -19,7 +19,7 @@ class Cart extends Component {
 
     let productsContent;
     if (cart === null || loading) {
-      productsContent = <Spinner />;
+      cartContents = <Spinner />;
     } else {
       cartContents = (
         <div className="section_wrapper">
