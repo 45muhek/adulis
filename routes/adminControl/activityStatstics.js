@@ -334,6 +334,11 @@ router.get("/weekly-active-users", (req, res) => {
     }
   });
 });
+
+//@route POST admin/active-delivery
+//@desc  get all delivery that is on goinf
+//access admin
+//TODO: ALL THAT`
 //DAY DIFFERENCE CALCULATOR
 Date.daysBetween = function(date1, date2) {
   var one_day = 1000 * 60 * 60 * 24;

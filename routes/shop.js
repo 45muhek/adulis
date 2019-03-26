@@ -48,6 +48,7 @@ router.post("/product", function(req, res) {
   if (errors) {
     var messages = [];
     var params = [];
+    console.log(errors);
     errors.forEach(function(error) {
       messages.push(error.msg);
       params.push(error.param);
@@ -60,7 +61,7 @@ router.post("/product", function(req, res) {
   if (req.body.pname) producFields.pname = req.body.pname;
   if (req.body.price) producFields.price = req.body.price;
   if (req.body.image) producFields.image = req.body.image;
-  if (req.body.stokeamount) producFields.stokeamount = req.body.stokeamount;
+  if (req.body.stokeamount) producFields.stokeamount = req.body.stokeamount * 1;
   if (req.body.description) producFields.description = req.body.description;
 
   //manufacre information

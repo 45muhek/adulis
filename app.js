@@ -54,7 +54,8 @@ var shopeRoutes = require("./routes/shop"),
   adminControls = require("./routes/adminControl/statstics"),
   auth = require("./routes/adminControl/auth"),
   communications = require("./routes/communication"),
-  userActivity = require("./routes/adminControl/activityStatstics");
+  userActivity = require("./routes/adminControl/activityStatstics"),
+  delivery = require("./routes/delivery");
 
 //PASSPORT CONFIGURATION
 app.use(
@@ -85,6 +86,7 @@ app.use("/store", storeRoures);
 app.use("/checkout", checkoutRoutes);
 app.use("/order", orderRoutes);
 app.use(communications);
+app.use("/delivery", delivery);
 
 //ADMIN CONTROLS
 app.use("/admin", adminControls);
