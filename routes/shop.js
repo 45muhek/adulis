@@ -5,6 +5,7 @@ var router = express.Router();
 var Product = require("../models/products"),
   Comment = require("../models/comments");
 Cart = require("../models/cart");
+const validateProductInput = require("../validation/product");
 
 //@route GET api/productcatalogue
 //@desc view all products
@@ -24,36 +25,10 @@ router.get("/products", function(req, res) {
 //@desc  create product
 //access private
 router.post("/product", function(req, res) {
-  //VALIDATION
-
-  req.checkBody("pname", "Product Name field is required").notEmpty();
-
-  req.checkBody("price", "Price field is required").notEmpty();
-
-  req.checkBody("image", "Image field is required").notEmpty();
-
-  req.checkBody("stokeamount", "Stock Ammount field is required").notEmpty();
-
-  req
-    .checkBody("description", "Product description field is required")
-    .notEmpty();
-
-  req.checkBody("manufacturer", "manufacturer field is required").notEmpty();
-
-  req.checkBody("department", "department field is required").notEmpty();
-
-  req.checkBody("new", "new or used field is required").notEmpty();
-
-  var errors = req.validationErrors();
-  if (errors) {
-    var messages = [];
-    var params = [];
-    console.log(errors);
-    errors.forEach(function(error) {
-      messages.push(error.msg);
-      params.push(error.param);
-    });
-    return res.status(400).json(messages);
+  const { errors, isValid } = validateProductInput(req.body);
+  //CHECK VALIDATION
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
 
   //GET FIELDS
