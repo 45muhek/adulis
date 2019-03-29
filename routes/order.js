@@ -148,12 +148,20 @@ router.get("/user/:id", (req, res) => {
 
 router.get("/set-delivery/:id", (req, res) => {
   const order = {};
+  const status = {};
   order.order = req.params.id;
+
+  //SETTING PRODUCT STATUS TO `BEING PROCESSED...`
+  status.status = "dispatched";
   Delivery.create(order, (err, delivery) => {
     if (err) {
       console.log(err);
     } else {
-      res.json(delivery);
+      Order.findByIdAndUpdate(
+        order.order,
+        { $set: status },
+        { new: true }
+      ).then(order => res.json(order));
     }
   });
 });
