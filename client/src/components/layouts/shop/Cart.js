@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-
+~~
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import CartTableRow from "./CartTableRow";
 import Spinner from "../../common/Spinner";
-<<<<<<< HEAD
-import CartTotals from "./CartTotals";
-=======
 
 import { getCart, getCartTotalPrice } from "../../../actions/cartActions";
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
 
 class Cart extends Component {
   componentDidMount() {
@@ -20,21 +16,6 @@ class Cart extends Component {
 
   render() {
     let cartContents;
-<<<<<<< HEAD
-
-    const { cart, loading } = this.props.cart;
-    // const { totalPrice } = this.props.cart.cart;
-    /*  this.props.cart.forEach(function(product) {
-      console.log(product.qty);
-    }); */
-    if (cart === null || loading || cart === "undefined") {
-      cartContents = <Spinner />;
-    } else if (3 > 0) {
-      cartContents = (
-        <div class="section_wrapper">
-          <div class="the_content_wrapper">
-            <div class="woocommerce">
-=======
     const { cart, loading } = this.props.cart;
     const { cart_total_price } = this.props.cart;
 
@@ -46,22 +27,10 @@ class Cart extends Component {
         <div className="section_wrapper">
           <div className="the_content_wrapper">
             <div className="woocommerce">
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
               <form
                 action="http://themes.muffingroup.com/be/theme/cart/"
                 method="post"
               >
-<<<<<<< HEAD
-                <table class="shop_table cart" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th class="product-thumbnail">&nbsp;</th>
-                      <th class="product-name">Product</th>
-                      <th class="product-price">Price</th>
-                      <th class="product-quantity">Quantity</th>
-                      <th class="product-subtotal">Total</th>
-                      <th class="product-remove">&nbsp;</th>
-=======
                 <table className="shop_table cart" cellSpacing="0">
                   <thead>
                     <tr>
@@ -71,7 +40,6 @@ class Cart extends Component {
                       <th className="product-quantity">Quantity</th>
                       <th className="product-subtotal">Total</th>
                       <th className="product-remove">&nbsp;</th>
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                     </tr>
                   </thead>
                   <tbody>
@@ -86,21 +54,6 @@ class Cart extends Component {
                   </tbody>
                 </table>
               </form>
-<<<<<<< HEAD
-              <div class="cart-collaterals">
-                <div class="cross-sells">
-                  <h2>You may be interested in&hellip;</h2>
-                  <div class="products_wrapper isotope_wrapper">
-                    <ul class="products ">
-                      <li class="isotope-item product type-product has-post-thumbnail product_cat-clothing product_cat-t-shirts first product-type-variable has-default-attributes has-children">
-                        <div
-                          class="image_frame scale-with-grid product-loop-thumb"
-                          ontouchstart="this.classList.toggle('hover');"
-                        >
-                          <div class="image_wrapper">
-                            <a href="product_page.html">
-                              <div class="mask" />
-=======
               <div className="cart-collaterals">
                 <div className="cross-sells">
                   <h2>You may be interested in&hellip;</h2>
@@ -111,20 +64,10 @@ class Cart extends Component {
                           <div className="image_wrapper">
                             <a href="product_page.html">
                               <div className="mask" />
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                               <img
                                 width="500"
                                 height="500"
                                 src="images/T_4_front-500x500.jpg"
-<<<<<<< HEAD
-                                class="scale-with-grid wp-post-image"
-                                alt=""
-                              />
-                            </a>
-                            <div class="image_links ">
-                              <a class="link" href="product_page.html">
-                                <i class="icon-link" />
-=======
                                 className="scale-with-grid wp-post-image"
                                 alt=""
                               />
@@ -132,7 +75,6 @@ class Cart extends Component {
                             <div className="image_links ">
                               <a className="link" href="product_page.html">
                                 <i className="icon-link" />
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                               </a>
                             </div>
                           </div>

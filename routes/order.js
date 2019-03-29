@@ -117,7 +117,7 @@ router.get("/all", (req, res) => {
         cart = new Cart(order.cart);
         order.items = cart.generateArray();
       });
-      res.render("products/orders", { orders, orders });
+      res.json(orders);
     }
   });
 });
