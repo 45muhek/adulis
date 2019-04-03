@@ -2,7 +2,8 @@ var express = require("express");
 var passport = require("passport");
 var router = express.Router();
 var Order = require("../models/order"),
-  User = require("../models/users");
+  User = require("../models/users"),
+  Delivery = require("../models/delivery");
 const validateCheckoutInput = require("../validation/checkout");
 
 //@route GET api/order
@@ -145,5 +146,23 @@ router.get("/user/:id", (req, res) => {
   });
 });
 
-router.get("/asign_transporter:id", (req, res) => {});
+router.get("/set-delivery/:id", (req, res) => {
+  const order = {};
+  const status = {};
+  order.order = req.params.id;
+
+  //SETTING PRODUCT STATUS TO `BEING PROCESSED...`
+  status.status = "dispatched";
+  Delivery.create(order, (err, delivery) => {
+    if (err) {
+      console.log(err);
+    } else {
+      Order.findByIdAndUpdate(
+        order.order,
+        { $set: status },
+        { new: true }
+      ).then(order => res.json(order));
+    }
+  });
+});
 module.exports = router;

@@ -63,7 +63,7 @@ router.get("/total-statstics", (req, res) => {
       orders.forEach(function(order) {
         cart = new Cart(order.cart);
         order.items = cart.generateArray();
-        var id = /* order.user.id */ 3;
+        var id = 3;
         if (!activeUser.includes(id)) activeUser.push(id);
       });
       console.log(activeUser);

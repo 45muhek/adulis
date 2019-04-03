@@ -5,6 +5,7 @@ var router = express.Router();
 var Product = require("../models/products"),
   Comment = require("../models/comments");
 Cart = require("../models/cart");
+const validateProductInput = require("../validation/product");
 
 //@route GET api/productcatalogue
 //@desc view all products
@@ -24,35 +25,10 @@ router.get("/products", function(req, res) {
 //@desc  create product
 //access private
 router.post("/product", function(req, res) {
-  //VALIDATION
-
-  req.checkBody("pname", "Product Name field is required").notEmpty();
-
-  req.checkBody("price", "Price field is required").notEmpty();
-
-  req.checkBody("image", "Image field is required").notEmpty();
-
-  req.checkBody("stokeamount", "Stock Ammount field is required").notEmpty();
-
-  req
-    .checkBody("description", "Product description field is required")
-    .notEmpty();
-
-  req.checkBody("manufacturer", "manufacturer field is required").notEmpty();
-
-  req.checkBody("department", "department field is required").notEmpty();
-
-  req.checkBody("new", "new or used field is required").notEmpty();
-
-  var errors = req.validationErrors();
-  if (errors) {
-    var messages = [];
-    var params = [];
-    errors.forEach(function(error) {
-      messages.push(error.msg);
-      params.push(error.param);
-    });
-    return res.status(400).json(messages);
+  const { errors, isValid } = validateProductInput(req.body);
+  //CHECK VALIDATION
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
 
   //GET FIELDS
@@ -60,7 +36,7 @@ router.post("/product", function(req, res) {
   if (req.body.pname) producFields.pname = req.body.pname;
   if (req.body.price) producFields.price = req.body.price;
   if (req.body.image) producFields.image = req.body.image;
-  if (req.body.stokeamount) producFields.stokeamount = req.body.stokeamount;
+  if (req.body.stokeamount) producFields.stokeamount = req.body.stokeamount * 1;
   if (req.body.description) producFields.description = req.body.description;
 
   //manufacre information
@@ -252,11 +228,6 @@ router.post("/product/rate", (req, res) => {
 
   res.redirect("/productcatalogue/" + id);
 });
-
-router.get("/add-new", (req, res) => {
-  res.render("products/new");
-});
-
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
