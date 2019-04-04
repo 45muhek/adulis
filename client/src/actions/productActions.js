@@ -46,3 +46,59 @@ export const getProductById = id => dispatch => {
       })
     );
 };
+<<<<<<< HEAD
+
+export const getToatalCartQty = () => dispatch => {
+  dispatch(setProductLoading());
+  axios
+    .get("/cart-total-qty")
+    .then(res =>
+      dispatch({
+        type: GET_CART_QTY,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_CART_QTY,
+        payload: err.response.data
+      })
+    );
+};
+export const addToCart = (id, history) => dispatch => {
+  dispatch(setProductLoading());
+  axios
+    .get(`/add-to-cart/${id}`)
+    .then(res => history.push("/shop"))
+    .catch(
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      })
+    );
+};
+
+export const getCart = () => dispatch => {
+  dispatch(setProductLoading());
+
+  axios
+    .get("/shopping-cart")
+    .then(res =>
+      dispatch({
+        type: GET_CART,
+        payload: res.data.products
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const getCartTotalPrice = () => dispatch => {
+  dispatch(setProductLoading());
+};
+=======
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485

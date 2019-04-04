@@ -21,8 +21,8 @@ require("./config/passport");
 require("./config/passport-google-auth");
 
 //initializing routes
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(methodOverride("_method"));
 app.use(validator());
@@ -55,7 +55,8 @@ var shopeRoutes = require("./routes/shop"),
   auth = require("./routes/adminControl/auth"),
   communications = require("./routes/communication"),
   userActivity = require("./routes/adminControl/activityStatstics"),
-  delivery = require("./routes/delivery");
+  delivery = require("./routes/delivery"),
+  filters = require("./routes/filters");
 
 //PASSPORT CONFIGURATION
 app.use(
@@ -73,12 +74,14 @@ app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session; //setting session to a user
   res.locals.currentUser = req.user;
+
   next();
 });
 
 //ROUTES
 app.use("/user", userRoutes);
 app.use(shopeRoutes);
+app.use(filters);
 app.use(indexRoutes);
 app.use("/comments", commentRoutes);
 app.use("/profile", profileRoutes);

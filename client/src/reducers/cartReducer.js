@@ -6,10 +6,9 @@ import {
 } from "../actions/Types";
 
 const initialState = {
-  cart_qty: "0",
+  cart_qty: null,
   cart: null,
-  cart_total_price: "0",
-  loading: false
+  cart_total_price: null
 };
 export default function(state = initialState, action) {
   switch (action.type) {

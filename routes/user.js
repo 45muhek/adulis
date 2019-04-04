@@ -33,6 +33,7 @@ router.use("/", isNotLoggedIn, function(req, res, next) {
   });
 }); */
 router.post("/login", (req, res) => {
+  console.log("wsaa " + req.body);
   const { errors, isValid } = validateLoginInput(req.body);
   //CHECK VALIDATION
   if (!isValid) {

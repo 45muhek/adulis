@@ -14,7 +14,11 @@ import ShopMain from "../layouts/shop/product/ShopMain";
 import Cart from "../layouts/shop/Cart";
 import Checkout from "../layouts/shop/Checkout";
 import SingleProduct from "../layouts/shop/product/SingleProduct";
+<<<<<<< HEAD
+import FAQ from "../layouts/statics/FAQ";
+=======
 import MyOrders from "../layouts/shop/MyOrders";
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
 
 /* import "../../css/global.css";
 import "../../css/structure.css";
@@ -37,8 +41,13 @@ export class Customer extends Component {
           <Route exact path="/shop" component={ShopMain} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/checkout" component={Checkout} />
+<<<<<<< HEAD
+          <Route exact path="/single-product" component={SingleProduct} />
+          <Route exact path="/faq" component={FAQ} />
+=======
           <Route exact path="/product/:id" component={SingleProduct} />
           <Route exact path="/my-orders" component={MyOrders} />
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
           <Footer />
           <PopUpContactForm />
         </div>

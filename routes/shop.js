@@ -228,11 +228,6 @@ router.post("/product/rate", (req, res) => {
 
   res.redirect("/productcatalogue/" + id);
 });
-
-router.get("/add-new", (req, res) => {
-  res.render("products/new");
-});
-
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+~~
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -12,6 +13,7 @@ class Cart extends Component {
     this.props.getCart();
     this.props.getCartTotalPrice();
   }
+
   render() {
     let cartContents;
     const { cart, loading } = this.props.cart;
@@ -77,6 +79,23 @@ class Cart extends Component {
                             </div>
                           </div>
                           <a href="product_page.html">
+<<<<<<< HEAD
+                            <span class="product-loading-icon added-cart" />
+                          </a>
+                        </div>
+                        <div class="desc">
+                          <h4>
+                            <a href="product_page.html">Ship Your Idea</a>
+                          </h4>
+                          <div class="star-rating" title="Rated 4.33 out of 5">
+                            <span style={{ width: "86.6" + "%" }}>
+                              <strong class="rating">4.33</strong> out of 5
+                            </span>
+                          </div>
+                          <span class="price">
+                            <span class="woocommerce-Price-amount amount">
+                              <span class="woocommerce-Price-currencySymbol">
+=======
                             <span className="product-loading-icon added-cart" />
                           </a>
                         </div>
@@ -95,6 +114,7 @@ class Cart extends Component {
                           <span className="price">
                             <span className="woocommerce-Price-amount amount">
                               <span className="woocommerce-Price-currencySymbol">
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                                 &#36;
                               </span>
                               20.00
@@ -102,15 +122,58 @@ class Cart extends Component {
                           </span>
                         </div>
                       </li>
+<<<<<<< HEAD
+                      <li class="isotope-item product type-product has-post-thumbnail product_cat-clothing product_cat-hoodies last instock sale shipping-taxable purchasable product-type-variable has-children">
+                        <div
+                          class="image_frame scale-with-grid product-loop-thumb"
+                          ontouchstart="this.classList.toggle('hover');"
+                        >
+                          <div class="image_wrapper">
+                            <a href="product_page.html">
+                              <div class="mask" />
+=======
                       <li className="isotope-item product type-product has-post-thumbnail product_cat-clothing product_cat-hoodies last instock sale shipping-taxable purchasable product-type-variable has-children">
                         <div className="image_frame scale-with-grid product-loop-thumb">
                           <div className="image_wrapper">
                             <a href="product_page.html">
                               <div className="mask" />
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                               <img
                                 width="500"
                                 height="500"
                                 src="images/hoodie_7_front-500x500.jpg"
+<<<<<<< HEAD
+                                class="scale-with-grid wp-post-image"
+                                alt=""
+                              />
+                            </a>
+                            <div class="image_links ">
+                              <a class="link" href="product_page.html">
+                                <i class="icon-link" />
+                              </a>
+                            </div>
+                          </div>
+                          <span class="onsale">
+                            <i class="icon-star" />
+                          </span>
+                          <a href="product_page.html">
+                            <span class="product-loading-icon added-cart" />
+                          </a>
+                        </div>
+                        <div class="desc">
+                          <h4>
+                            <a href="product_page.html">Ship Your Idea</a>
+                          </h4>
+                          <div class="star-rating" title="Rated 4 out of 5">
+                            <span style={{ width: "80" + "%" }}>
+                              <strong class="rating">4</strong> out of 5
+                            </span>
+                          </div>
+                          <span class="price">
+                            <del>
+                              <span class="woocommerce-Price-amount amount">
+                                <span class="woocommerce-Price-currencySymbol">
+=======
                                 className="scale-with-grid wp-post-image"
                                 alt=""
                               />
@@ -141,21 +204,32 @@ class Cart extends Component {
                             <del>
                               <span className="woocommerce-Price-amount amount">
                                 <span className="woocommerce-Price-currencySymbol">
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                                   &#36;
                                 </span>
                                 35.00
                               </span>
                             </del>{" "}
                             <ins>
+<<<<<<< HEAD
+                              <span class="woocommerce-Price-amount amount">
+                                <span class="woocommerce-Price-currencySymbol">
+=======
                               <span className="woocommerce-Price-amount amount">
                                 <span className="woocommerce-Price-currencySymbol">
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                                   &#36;
                                 </span>
                                 30.00
                               </span>
                               &ndash;
+<<<<<<< HEAD
+                              <span class="woocommerce-Price-amount amount">
+                                <span class="woocommerce-Price-currencySymbol">
+=======
                               <span className="woocommerce-Price-amount amount">
                                 <span className="woocommerce-Price-currencySymbol">
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                                   &#36;
                                 </span>
                                 35.00
@@ -167,6 +241,18 @@ class Cart extends Component {
                     </ul>
                   </div>
                 </div>
+<<<<<<< HEAD
+                <div class="cart_totals">
+                  <h2>Cart Totals</h2>
+                  <CartTotals />
+                  <div class="button button_large button_theme button_js">
+                    <a
+                      class="button button_large button_theme button_js"
+                      href="#"
+                      target="_blank"
+                    >
+                      <span class="button_label"> Proceed to Checkout</span>
+=======
                 <div className="cart_totals">
                   <h2>Cart Totals</h2>
                   <table
@@ -218,6 +304,7 @@ class Cart extends Component {
                       target="_blank"
                     >
                       <span className="button_label"> Proceed to Checkout</span>
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                     </a>
                   </div>
                 </div>
@@ -227,6 +314,22 @@ class Cart extends Component {
         </div>
       );
     }
+<<<<<<< HEAD
+    return (
+      <div>
+        <div class="column one column_column" />
+        <div id="Content">
+          <div class="content_wrapper clearfix">
+            <div class="sections_group">
+              <div class="entry-content">
+                <div class="section the_content has_content">
+                  {/*  */}
+                  {cartContents}
+                </div>
+                <div class="section section-page-footer">
+                  <div class="section_wrapper clearfix">
+                    <div class="column one page-pager" />
+=======
 
     return (
       <div>
@@ -242,6 +345,7 @@ class Cart extends Component {
                 <div className="section section-page-footer">
                   <div className="section_wrapper clearfix">
                     <div className="column one page-pager" />
+>>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
                   </div>
                 </div>
               </div>
