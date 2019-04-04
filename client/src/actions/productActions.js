@@ -1,6 +1,13 @@
 import axios from "axios";
 
-import { GET_PRODUCTS, GET_PRODUCT, PRODUCT_LOADING } from "./Types";
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  PRODUCT_LOADING,
+  GET_CART,
+  GET_ERRORS,
+  GET_CART_QTY
+} from "./Types";
 
 //GET ALL PRODUCTS
 export const getAllProducts = () => dispatch => {
@@ -46,7 +53,6 @@ export const getProductById = id => dispatch => {
       })
     );
 };
-<<<<<<< HEAD
 
 export const getToatalCartQty = () => dispatch => {
   dispatch(setProductLoading());
@@ -100,5 +106,3 @@ export const getCart = () => dispatch => {
 export const getCartTotalPrice = () => dispatch => {
   dispatch(setProductLoading());
 };
-=======
->>>>>>> 8abaf74808f16be5f1cc18197d0faa9d1358a485
