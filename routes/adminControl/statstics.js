@@ -1,3 +1,8 @@
+//THIS FILE INCLUDES OVER VIRW INFORMATION
+// THAT IS, TOTAL STATSTICS SUCH AS:
+//           TOTAL ACTIVE USERS
+//           TOTAL USER REGISTRATION
+//           TOTAL SITE VISITS
 var express = require("express");
 var router = express.Router();
 var Product = require("../../models/products"),
@@ -20,6 +25,7 @@ router.get("/total-statstics", (req, res) => {
     totalInterest: 0,
     totalProducts: 0,
     totalVisits: 0,
+    totalUsers: 0,
     totalActiveUsers: 0
   };
   Product.find({}).then(allProducts => {
@@ -52,6 +58,9 @@ router.get("/total-statstics", (req, res) => {
   });
   Statstic.count({}, (err, v) => {
     Statstics.totalVisits = v;
+  });
+  User.count({}).then(users => {
+    Statstics.totalUsers = users;
   });
 
   var activeUser = [];

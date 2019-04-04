@@ -5,6 +5,7 @@ var Product = require("../../models/products"),
   Cart = require("../../models/cart"),
   User = require("../../models/users");
 
+//JUST VIEWING
 //@route GET route/adminControl/all-users
 //@desc view all users
 //access private (admin)
@@ -13,6 +14,33 @@ router.get("/all-users", (req, res) => {
     res.json(users);
   });
 });
+
+//@route GET route/adminControl/customers
+//@desc view all customers
+//access private (admin)
+router.get("/customers", (req, res) => {
+  User.find({ role: "customer" }).then(users => {
+    res.json(users);
+  });
+});
+//@route GET route/adminControl/product-manger
+//@desc view all product managers
+//access private (admin)
+router.get("/product-managers", (req, res) => {
+  User.find({ role: "pmanager" }).then(users => {
+    res.json(users);
+  });
+});
+//@route GET route/adminControl/transporter
+//@desc view all transporters
+//access private (admin)
+router.get("/transporters", (req, res) => {
+  User.find({ role: "transporter" }).then(users => {
+    res.json(users);
+  });
+});
+
+//AUTHORIZATION AND DE-AUTHORIZATHION
 //@route GET route/adminControl/update-to-manager
 //@desc update a customer or downgrade an admin to a product manager
 //access private (admin)
@@ -50,28 +78,5 @@ router.post("/update-to-customer/:id", (req, res) => {
     res.json(" is added to customers list");
   });
 });
-//@route GET route/adminControl/customers
-//@desc view all customers
-//access private (admin)
-router.get("/customers", (req, res) => {
-  User.find({ role: "customer" }).then(users => {
-    res.json(users);
-  });
-});
-//@route GET route/adminControl/product-manger
-//@desc view all product managers
-//access private (admin)
-router.get("/product-managers", (req, res) => {
-  User.find({ role: "pmanager" }).then(users => {
-    res.json(users);
-  });
-});
-//@route GET route/adminControl/transporter
-//@desc view all transporters
-//access private (admin)
-router.get("/transporters", (req, res) => {
-  User.find({ role: "transporter" }).then(users => {
-    res.json(users);
-  });
-});
+
 module.exports = router;

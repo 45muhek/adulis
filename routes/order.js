@@ -109,18 +109,20 @@ router.post("/:id", (req, res) => {
 //@desc view all order requests
 //access private(pm)
 router.get("/all", (req, res) => {
-  Order.find({}, function(err, orders) {
-    if (err) {
-      console.log(err);
-    } else {
-      var cart;
-      orders.forEach(function(order) {
-        cart = new Cart(order.cart);
-        order.items = cart.generateArray();
-      });
-      res.json(orders);
-    }
-  });
+  Order.find({})
+    .sort([["created", -1]])
+    .exec((err, orders) => {
+      if (err) {
+        console.log(err);
+      } else {
+        var cart;
+        orders.forEach(function(order) {
+          cart = new Cart(order.cart);
+          order.items = cart.generateArray();
+        });
+        res.json(orders);
+      }
+    });
 });
 //@route GET api/set-transporter
 //@desc set transporter for an order
@@ -136,7 +138,7 @@ router.get("/set_transporter", (req, res) => {
 });
 //@route GET api/order
 //@desc view the person that made an order
-//access public
+//access private -  product manager
 router.get("/user/:id", (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) console.log(err);
@@ -145,13 +147,15 @@ router.get("/user/:id", (req, res) => {
     }
   });
 });
-
+//@route GET api/order
+//@desc sending the product to  transporters
+//access private -  product manager
 router.get("/set-delivery/:id", (req, res) => {
   const order = {};
   const status = {};
   order.order = req.params.id;
 
-  //SETTING PRODUCT STATUS TO `BEING PROCESSED...`
+  //SETTING PRODUCT STATUS TO `DESPATCHED...`
   status.status = "dispatched";
   Delivery.create(order, (err, delivery) => {
     if (err) {

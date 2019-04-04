@@ -10,14 +10,17 @@ const User = require("../models/users"),
 //@desc get all orders setnt by product manager
 //access transporter
 router.get("/", (req, res) => {
-  Delivery.find({}, (err, orders) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(orders);
-    }
-  });
+  Delivery.find({})
+    .populate("order")
+    .exec(function(err, delivery) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(delivery);
+      }
+    });
 });
+
 //@route POST delivery/
 //@desc transporter accepts an order
 //access transporter
@@ -40,7 +43,7 @@ router.post("/:id", passport.authenticate("jwt"), (req, res) => {
   );
 });
 //@route POST report/
-//@desc transporter transporter report an order
+//@desc transporter  report an order
 //access transporter
 router.post("/report/:id", (req, res) => {
   const order = {};

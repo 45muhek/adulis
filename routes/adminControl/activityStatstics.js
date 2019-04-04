@@ -1,3 +1,8 @@
+//THIS FILE INCLUDES WEEKLY STAT
+//SUCH US
+//            WEEKLY ACTIVE USERS
+//            WEEKLY USER REGISTRATION
+//            WEEKLY SITE VISITS
 var express = require("express");
 var router = express.Router();
 
@@ -6,6 +11,9 @@ var User = require("../../models/users"),
   Order = require("../../models/order");
 
 //WEEKLY STATSTICS
+//@route POST admin/weekly-statstics
+//@desc  get weekly stat
+//access admin
 router.get("/weekly-statstics", (req, res) => {
   console.log("==========> weekly statics");
   var siteReleaseDate = new Date("2019-02-01 06:58:59.148Z");
@@ -29,12 +37,14 @@ router.get("/weekly-statstics", (req, res) => {
 
   var weeklySiteVisits = {
     weeklySiteVisitCounter: 0,
-    lastWeekVisitCounter: 0
+    lastWeekVisitCounter: 0,
+    differenceByPercent: 0
   };
 
   var weeklyActiveUser = {
     weeklyActiveUserCounter: 0,
-    lastWeekActiveUserCounter: 0
+    lastWeekActiveUserCounter: 0,
+    differenceByPercent: 0
   };
   //WEEKLY NEW USERS
   var otherWeeks = [{}];
@@ -115,9 +125,13 @@ router.get("/weekly-statstics", (req, res) => {
               console.log("website visited @ the" + visitedWeek_ + "th week");
             }
           });
+          var visitsDifferenceByPercent =
+            ((weeklySiteVisitCounter - lastWeekVisitCounter) * 100) /
+            lastWeekVisitCounter;
 
           weeklySiteVisits.weeklySiteVisitCounter = weeklySiteVisitCounter;
           weeklySiteVisits.lastWeekVisitCounter = lastWeekVisitCounter;
+          weeklySiteVisits.differenceByPercent = visitsDifferenceByPercent;
         }
       });
       var activeUser = [];
@@ -130,7 +144,8 @@ router.get("/weekly-statstics", (req, res) => {
             console.log("ooooooorder" + order);
             cart = new Cart(order.cart);
             order.items = cart.generateArray();
-            var id = order.user.toString();
+            var id = order.user;
+            console.log("order.user", order.user);
 
             var acitveDate = new Date(order.deliverydate);
             var activeWeek = weekBetween(acitveDate, siteReleaseDate);
@@ -159,8 +174,13 @@ router.get("/weekly-statstics", (req, res) => {
             }
           });
         }
+        var ActiveUsersDifferenceByPercent =
+          ((weeklyActiveUserCounter - lastWeekActiveUserCounter) * 100) /
+          lastWeekActiveUserCounter;
+
         weeklyActiveUser.weeklyActiveUserCounter = weeklyActiveUserCounter;
         weeklyActiveUser.lastWeekActiveUserCounter = lastWeekActiveUserCounter;
+        weeklyActiveUser.differenceByPercent = ActiveUsersDifferenceByPercent;
 
         var WeeklyStatstics = {};
 
@@ -303,7 +323,7 @@ router.get("/weekly-active-users", (req, res) => {
       orders.forEach(function(order) {
         cart = new Cart(order.cart);
         order.items = cart.generateArray();
-        var id = order.user.toString();
+        var id = order.user;
 
         var acitveDate = new Date(order.deliverydate);
         var activeWeek = weekBetween(acitveDate, siteReleaseDate);
@@ -329,12 +349,23 @@ router.get("/weekly-active-users", (req, res) => {
           activeUser.push(id);
         }
       });
-      console.log(activeUser);
-      res.json("weekly active users = " + weeklyActiveUserCounter);
+
+      var differenceByPercent =
+        ((weeklyActiveUserCounter - lastWeekActiveUserCounter) * 100) /
+        lastWeekActiveUserCounter;
+
+      var weeklyStatstics = {};
+
+      weeklyStatstics.weeklyActiveUser = weeklyActiveUserCounter;
+      weeklyStatstics.differenceByPercent = differenceByPercent;
+      res.json(weeklyActiveUserCounter);
     }
   });
 });
 
+router.get("/weekly-percent", (req, res) => {
+  res.json("wsssa");
+});
 //@route POST admin/active-delivery
 //@desc  get all delivery that is on goinf
 //access admin

@@ -1,11 +1,18 @@
 var express = require("express");
 var router = express.Router({ mergeParams: true });
+var passport = require("passport");
+const validateMessageInput = require("../validation/message");
 
 var Message = require("../models/communication/messages"),
   Announcment = require("../models/communication/announcment"),
   Notification = require("../models/communication/notification");
 
 router.post("/messages", (req, res) => {
+  const { errors, isValid } = validateMessageInput(req.body);
+  //CHECK VALIDATION
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   const messageFields = {};
   if (req.body.subject) messageFields.subject = req.body.subject;
   if (req.body.text) messageFields.text = req.body.text;
@@ -62,6 +69,7 @@ router.post("/notification/:id", (req, res) => {
   notificationField.user = req.params.id;
   if (req.body.subject) notificationField.subject = req.body.subject;
   if (req.body.type) notificationField.type = req.body.type;
+  if (req.body.body) notificationField.body = req.body.body;
 
   Notification.create(notificationField, function(err, notif) {
     if (err) {
@@ -72,7 +80,7 @@ router.post("/notification/:id", (req, res) => {
   });
 });
 
-router.get("/notification", (req, res) => {
+router.get("/notification", passport.authenticate("jwt"), (req, res) => {
   var errors = {};
   Notification.findOne({ user: req.user.id })
 
