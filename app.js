@@ -96,5 +96,4 @@ app.use("/admin", adminControls);
 app.use("/auth", auth);
 app.use("/activity", userActivity);
 const port = 5000;
-
 app.listen(port, () => console.log("Adulis server running!"));

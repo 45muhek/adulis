@@ -7,7 +7,7 @@ var Product = require("../models/products"),
 Cart = require("../models/cart");
 const validateProductInput = require("../validation/product");
 
-//@route GET api/productcatalogue
+//@route GET /productcatalogue
 //@desc view all products
 //access public
 router.get("/products", function(req, res) {

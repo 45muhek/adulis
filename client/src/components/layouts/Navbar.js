@@ -138,12 +138,26 @@ class Navbar extends Component {
                       <nav id="menu">
                         <ul id="menu-main-menu" className="menu">
                           <li>
+<<<<<<< Updated upstream
                             <Link to="#" target="_blank">
+=======
+                            <a
+                             // href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
+                              target="_blank"
+                            >
+>>>>>>> Stashed changes
                               <span>Departments</span>
                             </Link>
                           </li>
                           <li>
+<<<<<<< Updated upstream
                             <Link to="/departments" target="_blank">
+=======
+                            <a
+                             // href="http://be.BeantownThemes.com/intro/be-intro/be/splash/index.html"
+                              target="_blank"
+                            >
+>>>>>>> Stashed changes
                               <span>Featured</span>
                             </Link>
                           </li>

@@ -5,7 +5,7 @@ var Product = require("../models/products"),
   Users = require("../models/users");
 Store = require("../models/store");
 
-//@route GET api/store/
+//@route GET store/
 //@desc  test store route
 //access public
 router.get("/", (req, res) => {

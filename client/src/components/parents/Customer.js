@@ -14,8 +14,13 @@ import ShopMain from "../layouts/shop/product/ShopMain";
 import Cart from "../layouts/shop/Cart";
 import Checkout from "../layouts/shop/Checkout";
 import SingleProduct from "../layouts/shop/product/SingleProduct";
+<<<<<<< Updated upstream
 import FAQ from "../layouts/statics/FAQ";
 import MyOrders from "../layouts/shop/MyOrders";
+=======
+import OurService from "../layouts/OurService";
+import AboutUs from "../layouts/AboutUs";
+>>>>>>> Stashed changes
 
 /* import "../../css/global.css";
 import "../../css/structure.css";
@@ -41,7 +46,12 @@ export class Customer extends Component {
           <Route exact path="/single-product" component={SingleProduct} />
           <Route exact path="/faq" component={FAQ} />
           <Route exact path="/product/:id" component={SingleProduct} />
+<<<<<<< Updated upstream
           <Route exact path="/my-orders" component={MyOrders} />
+=======
+          <Route exact path="/services" component={OurService} />
+          <Route exact path="/About-us" component={AboutUs} />
+>>>>>>> Stashed changes
           <Footer />
           <PopUpContactForm />
         </div>
